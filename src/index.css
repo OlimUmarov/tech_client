@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'PoppinsMedium';
+  src: url('./fonts//Poppins/Poppins-Medium.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'PoppinsRegular';
+  src: url('./fonts//Poppins/Poppins-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'PoppinsBold';
+  src: url('./fonts//Poppins/Poppins-Bold.woff') format('woff');
+}
+
