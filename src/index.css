@@ -19,3 +19,16 @@
   src: url('./fonts//Poppins/Poppins-Bold.woff') format('woff');
 }
 
+select {
+  -webkit-appearance: none;
+  background: url(./assets/dropdown.svg) calc(100% - 10px)  center;
+  background-repeat: no-repeat;
+  text-indent: 1px;
+  text-overflow: '';
+}
+.calendar{
+  background: url(./assets/calendar.svg) calc(100% - 10px)  center;
+  background-repeat: no-repeat;
+  z-index: 100;
+}
+

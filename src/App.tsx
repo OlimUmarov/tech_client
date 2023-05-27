@@ -3,7 +3,6 @@ import { RouterProvider } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./utils/routes";
 import { useAppSelector } from "./app/hook";
 import { getItem } from './lib/itemStorage';
-import { Loader } from '@mantine/core';
 
 
 function App() {
@@ -19,8 +18,8 @@ useEffect(() => {
   }
 }, [isLogin])
 
-  if (!isLogged) return <RouterProvider key={1} router={publicRoutes} fallbackElement={<Loader />}/>
-  return <RouterProvider key={2} router={privateRoutes} fallbackElement={<Loader />}/>
+  if (!isLogged) return <RouterProvider key={1} router={publicRoutes} fallbackElement={<h1>loading</h1>}/>
+  return <RouterProvider key={2} router={privateRoutes} fallbackElement={<h1>loading</h1>}/>
 }
 
 

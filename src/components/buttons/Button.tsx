@@ -5,10 +5,11 @@ import '../../App.css'
 
 type Props = {
   title: string;
-  active: boolean;
+  active?: boolean;
+  width?: boolean
 };
 
-const Button = ({ title, active }: Props) => {
+const Button = ({ title, active, width }: Props) => {
   // const dispatch = useAppDispatch();
   const { isLogin } = useAppSelector((state) => state.contentSlice);
 
@@ -20,9 +21,9 @@ const Button = ({ title, active }: Props) => {
   return (
     <div>
       <button
-        className={`py-2 px-5 border-2 rounded-xl mr-2  mb-2  ${
-          active ? "blue" : "white"
-        } ${isLogin && "cursor-not-allowed"}`}
+        className={`py-2.5 px-5 border-2 font-medium rounded-xl mr-2  mb-2  ${
+          active ? "blue" : "white" } ${width && "w-full"} 
+           ${isLogin && "cursor-not-allowed"}`}
         disabled={isLogin}
       >
         {title}

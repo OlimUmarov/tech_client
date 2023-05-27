@@ -1,8 +1,9 @@
 import { publicAxios } from "../lib/publicAxios";
 
-interface AuthData {
+export type AuthData = {
   first_name: string;
   last_name: string;
+  gender: string;
   phone: string;
   city_id: number;
   birthday: Date;
@@ -10,7 +11,7 @@ interface AuthData {
   password: string;
 }
 
-export const categories = {
+ const authorization = {
   register: async (data: AuthData) => await publicAxios.post("/users", {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -18,6 +19,7 @@ export const categories = {
       city_id: data.city_id,
       birthday: data.birthday,
       email: data.email,
+      gender: data.gender,
       password: data.password,
     }),
 
@@ -26,3 +28,7 @@ export const categories = {
       password: data.password,
     }),
 };
+
+export default authorization
+
+

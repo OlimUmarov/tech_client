@@ -41,13 +41,16 @@
     @apply bg-slate-50 h-24 rounded-md text-base font-medium py-3 px-10;
   }
   .label {
-    @apply text-base;
+    @apply text-base font-medium;
   }
   
   .linear {
     @apply bg-gradient-to-b from-transparent to-white;
   }
   .input {
-    @apply bg-[#F9F9FB] rounded-lg outline-sky-500 text-gray-500 text-sm;
+    @apply bg-[#F5F7F9] rounded-lg focus:border focus:border-blue-500 outline-none text-gray-500 text-sm h-12 w-full; 
+  }
+  .gender {
+    @apply bg-[#F5F7F9] outline-none text-gray-500 text-sm h-12 w-full; 
   }
   
