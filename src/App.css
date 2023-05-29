@@ -1,56 +1,123 @@
 .App {
-    @apply w-[1220px] mx-auto box-border;
+  @apply w-[1220px] mx-auto box-border
+}
+
+.post {
+  @apply px-2 bg-green-500 text-white flex justify-center items-center rounded-md;
+}
+
+.border {
+  @apply border-2 border-gray-400 rounded-lg;
+}
+
+.white {
+  @apply border-blue-500 text-black transition duration-200 ease-out;
+}
+
+.white:hover {
+  @apply bg-blue-500 text-white;
+}
+
+.blue {
+  @apply border-blue-500 bg-blue-500 text-white transition duration-200 ease-out;
+}
+
+.blue:hover {
+  @apply hover:bg-blue-600 hover:border-blue-600;
+}
+.custom-height {
+  @apply h-[calc(100vh-100px)];
+}
+
+.datePicker {
+  @apply bg-slate-50 h-24 rounded-md text-base font-medium py-3 px-10;
+}
+.label {
+  @apply text-base font-medium;
+}
+
+.linear {
+  @apply bg-gradient-to-b from-transparent to-white;
+}
+.input {
+  @apply bg-[#F5F7F9] rounded-lg focus:border focus:border-blue-500 outline-none text-gray-500 text-sm max-md:text-xs h-12 w-full;
+}
+.gender {
+  @apply bg-[#F5F7F9] outline-none text-gray-500 text-sm h-12 w-full;
+}
+
+/* Alert Style */
+.alert-transition-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.alert-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.alert-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.alert-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+@media (max-width: 1440px) {
+  .post-item {
+    padding: calc(16px + 16 * ((100vw - 320px) / 1120));
+    gap: calc(8px + 16 * ((100vw - 320px) / 1120));
   }
-  
-  .post {
-    @apply py-2 px-14 cursor-pointer flex justify-center items-center bg-gray-100 border border-blue-300 rounded-md text-base;
+  .post-item__title {
+    font-size: calc(18px + 7 * ((100vw - 320px) / 1120));
+    margin-bottom: calc(12px + 12 * ((100vw - 320px) / 1120));
   }
-  
-  .post-light {
-    @apply bg-blue-300 cursor-pointer;
+  .post-item__desc {
+    font-size: calc(12px + 2 * ((100vw - 320px) / 1120));
+    /* margin-bottom: calc(21px + 19 * ((100vw - 320px) / 1120)); */
   }
-  
-  html {
-    font-family: "Poppins", sans-serif;
+  .post-item__btn{
+    font-size: calc(10px + 2 * ((100vw - 320px) / 1120));
   }
-  
-  .border {
-    @apply border-2 border-gray-400 rounded-lg;
+  .post-item__img {
+    width: calc(120px + 64 * ((100vw - 320px) / 1120));
+    height: calc(120px + 46 * ((100vw - 320px) / 1120));
   }
-  
-  .white {
-    @apply border-blue-500 text-black transition duration-200 ease-out;
-  }
-  
-  .white:hover {
-    @apply bg-blue-500 text-white;
-  }
-  
-  .blue {
-    @apply border-blue-500 bg-blue-500 text-white transition duration-200 ease-out;
-  }
-  
-  .blue:hover {
-    @apply hover:bg-blue-600 hover:border-blue-600;
-  }
-  .custom-height {
-    @apply h-[calc(100vh-100px)];
-  }
-  
-  .datePicker {
-    @apply bg-slate-50 h-24 rounded-md text-base font-medium py-3 px-10;
-  }
-  .label {
-    @apply text-base font-medium;
-  }
-  
-  .linear {
-    @apply bg-gradient-to-b from-transparent to-white;
-  }
-  .input {
-    @apply bg-[#F5F7F9] rounded-lg focus:border focus:border-blue-500 outline-none text-gray-500 text-sm h-12 w-full; 
-  }
-  .gender {
-    @apply bg-[#F5F7F9] outline-none text-gray-500 text-sm h-12 w-full; 
-  }
-  
+}
+.post-item {
+  position: relative;
+  border-radius: 22px;
+  /* background-color: #e0e1f1; */
+  background-color: #FFFFFF;
+  padding: 32px;
+  color: #1c1917;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  gap: 24px;
+  transition: all 0.4s ease;
+}
+.post-item:hover{
+  transform: scale(1.025);
+  background-color: #FFFFFF;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+.post-item__content {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  flex-direction: column;
+  align-items: center;
+}
+.post-item__title {
+  font-weight: 600;
+  line-height: 130%;
+  /* margin-bottom: 24px; */
+}

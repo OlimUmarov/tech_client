@@ -9,7 +9,7 @@ interface Posts {
   user_id: number;
 }
 
-export const posts = {
+export const postsApi = {
   allPosts: async () => await publicAxios.get("/posts"),
   getPosts: async (id: number) => await publicAxios.get(`/posts:${id}`),
   postPost: async (data: Posts) => await privateAxios.post("/users", {

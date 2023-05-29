@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: 'PoppinsMedium';
   src: url('./fonts//Poppins/Poppins-Medium.woff') format('woff');
@@ -19,6 +18,10 @@
   src: url('./fonts//Poppins/Poppins-Bold.woff') format('woff');
 }
 
+html{
+  @apply bg-slate-50
+}
+
 select {
   -webkit-appearance: none;
   background: url(./assets/dropdown.svg) calc(100% - 10px)  center;
@@ -32,3 +35,29 @@ select {
   z-index: 100;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+a:-webkit-any-link {
+    cursor: pointer;
+    text-decoration: none;
+}
+:root {
+    --swiper-theme-color: #007aff;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    background-color: #8387c5;
+    box-shadow: inset 2px 2px 5px 0 hsla(0,0%,100%,.5);
+}

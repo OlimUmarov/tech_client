@@ -1,12 +1,18 @@
-import React from 'react'
+import Navbar from "../navbar/Navbar";
 
 type Props = {children: React.ReactNode}
 
 function PublicLayout({ children }: Props) {
   return (
     <div>
-      {children}
-    </div>
+    <nav>
+     <Navbar />
+   </nav>
+   <div className="App">
+   {children}
+   </div>
+    
+ </div>
   )
 }
 

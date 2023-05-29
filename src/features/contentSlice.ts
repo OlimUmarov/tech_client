@@ -1,11 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface InititialProps {
-    isLogin: boolean
+type InititialProps = {
+    isLogin: boolean,
+    showAlert: {
+        message: string,
+        color: "red" | "green"
+    }
 }
 
 const initialState: InititialProps = {
-    isLogin: false
+    isLogin: false,
+    showAlert: {
+        message: "",
+        color: "red"
+    }
 }
 
 const contentSlice = createSlice({
@@ -14,10 +22,13 @@ const contentSlice = createSlice({
     reducers: {
         changeLogin: (state, action: PayloadAction<boolean>) => {
             state.isLogin = action.payload
-        }
+        },
+        changeAlert: (state, action: PayloadAction<{message:string,color: "red" | "green"}>) => {
+            state.showAlert = action.payload;
+          },
     }
 })
 
 
 export default contentSlice.reducer
-export const { changeLogin } = contentSlice.actions
+export const { changeLogin, changeAlert  } = contentSlice.actions

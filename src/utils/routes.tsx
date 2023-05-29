@@ -9,40 +9,40 @@ import PrivateLayout from '../components/layouts/PrivateLayout'
 import PublicLayout from '../components/layouts/PublicLayout'
 import Categories from '../pages/posts/Categories'
 import NotFound from '../pages/error/NotFound'
-import Home from '../pages/Home'
 
 export const publicRoutes = createBrowserRouter([
     {
       path: '/',
       errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
-      element: <PublicLayout><Home /></PublicLayout>,
-      children:[
+      element: <PublicLayout><NewPosts /></PublicLayout>,
+      index: true,
+    },
         {
-          path: 'new-posts',
+          path: '/new-posts',
           index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><NewPosts /></PublicLayout>
         },
         {
-          path: 'popular-posts',
+          path: '/popular-posts',
           index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><PopularPosts /></PublicLayout>
         },
         {
-          path: 'categories',
+          path: '/categories',
           index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><Categories /></PublicLayout>
         },
         {
-          path: 'sign-up',
+          path: '/sign-up',
           index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><SignUp /></PublicLayout>
         },
         {
-          path: 'login',
+          path: '/login',
           index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><Login /></PublicLayout>
@@ -52,8 +52,7 @@ export const publicRoutes = createBrowserRouter([
           path: '*',
           element: <PublicLayout> <NotFound /> </PublicLayout>
         }
-      ]
-    },
+      
 
   ])
   
@@ -61,34 +60,40 @@ export const publicRoutes = createBrowserRouter([
     {
       path: '/',
       errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-      element: <PrivateLayout> <Home /> </PrivateLayout>,
-      children: [
+      element: <PrivateLayout> <NewPosts /> </PrivateLayout>,
+      index: true,
+    },
         {
-          path: 'new-posts',
+          path: '/new-posts',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-          element: <PrivateLayout> <NewPosts /> </PrivateLayout>
+          element: <PrivateLayout> <NewPosts /> </PrivateLayout>,
+          index: true,
         },
         {
-          path: 'popular-posts',
+          path: '/popular-posts',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-          element: <PrivateLayout> <PopularPosts /> </PrivateLayout>
+          element: <PrivateLayout> <PopularPosts /> </PrivateLayout>,
+          index: true,
         },
         {
-          path: 'categories',
+          path: '/categories',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-          element: <PrivateLayout> <Categories/> </PrivateLayout>
+          element: <PrivateLayout> <Categories/> </PrivateLayout>,
+          index: true,
         },
         {
-          path: 'my-posts',
+          path: '/my-posts',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-          element: <PrivateLayout> <MyPosts/> </PrivateLayout>
+          element: <PrivateLayout> <MyPosts/> </PrivateLayout>,
+          index: true,
         },   
         {
           path: '*',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-          element: <PrivateLayout> <NotFound /> </PrivateLayout>
+          element: <PrivateLayout> <NotFound /> </PrivateLayout>,
+          index: true,
         }
-      ]
-    },
+    
+
 
   ])

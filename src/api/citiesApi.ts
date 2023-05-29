@@ -6,7 +6,7 @@ export type Cities = {
   name?: string;
 };
 
-export const cities = {
+export const citiesApi = {
   getCities: async () => await publicAxios.get("/cities"),
 
   postCity: async (city: Cities) =>
