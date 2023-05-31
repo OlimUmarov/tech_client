@@ -7,10 +7,13 @@ import { Posts } from "../../types/posts";
 
 export const MyPosts = () => {
   const [postList, setPostList] = useState<Array<Posts>>([]);
+  const { id } = useParams();
 
   const getMyPost = async () => {
     try {
       const response: AxiosResponse<any> = await postsApi.getMyPosts();
+      console.log(response.data);
+      
       setPostList(response.data.results);
     } catch (error: any) {
       console.log("getMyPosts" + error.message);
@@ -30,7 +33,7 @@ export const MyPosts = () => {
       user_id: post.user_id,
     };
     return (
-      <Link to={`/my-posts/${post.id}`} key={post.id}>
+      <Link to={`/post/${post.id}`} key={post.id}>
         <ArticleCard {...props} />
       </Link>
     );
@@ -38,11 +41,13 @@ export const MyPosts = () => {
 
   useEffect(() => {
     getMyPost();
-  }, []);
+  }, [id]);
 
   return (
     <div className="bg-slate-50">
+    <div className="grid grid-cols-2 max-lg:grid-cols-2 gap-8 pt-8 pb-8 contain ">
       <div>{postList.length ? <div>{posts}</div> : <div>Not added yet</div>}</div>
+    </div>
     </div>
   );
 };

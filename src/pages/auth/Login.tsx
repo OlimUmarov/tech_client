@@ -35,7 +35,7 @@ const Login = () => {
     try {
       const response: AxiosResponse<any> = await authorization.login(newSchema);
       
-      if (response) {
+      if (response.status === 200) {
         dispatch(changeLogin(true))
         setItem("access_token",response.data.token)
         navigate("/");

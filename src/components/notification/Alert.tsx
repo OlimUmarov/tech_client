@@ -19,7 +19,7 @@ export const Alert = () => {
   }, [showAlert]);
 
   return (
-    <div className="alert-message">
+    <div className="alert-message ">
       <CSSTransition
         in={show}
         timeout={300}
@@ -27,7 +27,7 @@ export const Alert = () => {
         unmountOnExit
       >
         <main
-          className="fixed  right-4 p-4 mb-4 w-96 text-gray-800 border border-slate-50 drop-shadow-md rounded-lg bg-white dark:bg-gray-800 dark:text-blue-400"
+          className="fixed z-50 mt-10 right-4 p-4 mb-4 w-96 text-gray-800 border border-slate-50 drop-shadow-md rounded-lg bg-white dark:bg-gray-800 dark:text-blue-400"
           role="alert"
         >
           {showAlert.color === "red" && (

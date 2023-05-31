@@ -44,10 +44,10 @@ export const TextEditor = () => {
     formData.append("shortContent", "Tarix, Geografiya Tibbiyot sohasidadagi asarlaridan dunyo foydalanib kelmoqda");
     formData.append("img", file);
 
-    // const response: AxiosResponse<any> = await postsApi.postPost(formData);
-    // if (response.status === 200) {
-    //   dispatch(changeAlert({ message: response.statusText, color: "green" }));
-    // }
+    const response: AxiosResponse<any> = await postsApi.postPost(formData);
+    if (response.status === 200) {
+      dispatch(changeAlert({ message: response.statusText, color: "green" }));
+    }
     for (const [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }

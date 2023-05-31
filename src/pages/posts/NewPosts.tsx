@@ -37,7 +37,7 @@ function NewPosts() {
 
   return (
     <div className="bg-slate-50">
-      <div className="grid grid-cols-2 max-lg:grid-cols-2 gap-8 pt-8 pb-8 container ">
+      <div className="grid grid-cols-2 max-lg:grid-cols-2 gap-8 pt-8 pb-8 contain ">
         {posts}
       </div>
     </div>

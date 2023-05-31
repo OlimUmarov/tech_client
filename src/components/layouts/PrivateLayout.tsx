@@ -1,4 +1,4 @@
-import Navbar from "../navbar/Navbar";
+import PrivateNavbar from "../navbar/PrivateNavbar";
 
 type Props = { children: React.ReactNode };
 
@@ -8,7 +8,7 @@ function PrivateLayout({ children }: Props) {
   return (
     <div>
        <nav>
-        <Navbar />
+        <PrivateNavbar/>
       </nav>
       <div className="bg-white">
       {children}

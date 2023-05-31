@@ -1,22 +1,15 @@
 import { useLocation, NavLink } from "react-router-dom";
 import navbarLinks from "./navbarLinks";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import Button from "../buttons/Button";
 import buttonNames from "../buttons/buttonNames";
-import { getItem } from "../../lib/itemStorage";
 import { IoIosSearch } from "react-icons/io";
-import { UserAccount } from "../buttons/UserAccount";
 
 
-const Navbar = () => {
-  const [token, setToken] = useState<string>("");
+const PublicNavbar = () => {
   const [isFocused, setIsFocused] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    const token = getItem("access_token");
-    token && setToken(token);
-  }, []);
 
   const navbars: ReactNode = navbarLinks.map((navbar) => {
     const currentPath = location.pathname === navbar.link;
@@ -39,7 +32,7 @@ const Navbar = () => {
     <div>
       <header className="bg-white border-b border-gray-200 ">
         <nav className="py-3  dark:bg-gray-800">
-          <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+          <div className="flex flex-wrap justify-between items-center mx-auto contain">
             <div className="flex flex-wrap justify-center items-center gap-10">
               <NavLink to="/" className="flex items-center">
                 <img
@@ -89,20 +82,12 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center lg:order-2">
-              {token ? (
-                <div>
-                  <UserAccount/>
-                </div>
-              ) : (
-                <>
                   <NavLink to={buttonNames.links.signUp}>
                     <Button title={buttonNames.name.signUp} active={true} />
                   </NavLink>
                   <NavLink to={buttonNames.links.login}>
                     <Button title={buttonNames.name.login} active={false} />
                   </NavLink>
-                </>
-              )}
             </div>
           </div>
         </nav>
@@ -111,4 +96,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default PublicNavbar;

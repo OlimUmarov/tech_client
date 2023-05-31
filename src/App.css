@@ -134,36 +134,40 @@
   transition: all 0.5s;
 }
 
-@media (max-width: 1440px) {
-  .container {
-    max-width: 1220px;
-    margin: 0 auto;
-  }
+
+@media screen and (min-width: 1220px) {
   .article_title {
     font-size: calc(38px + 7 * ((100vw - 320px) / 1120));
     margin-bottom: calc(33px + 12 * ((100vw - 320px) / 1120));
   }
+  .contain {
+    max-width: 1220px;
+  }
+  .postContainer {
+    max-width: 1220px;
+  }
+  
 
 }
 
 @media (max-width: 992px) {
-  .container {
+  .contain {
     max-width: 960px;
   }
 }
 @media (max-width: 768px) {
-  .container {
+  .contain {
     max-width: 720px;
   }
 }
 
 @media (max-width: 576px) {
-  .container {
+  .contain {
     max-width: 540px;
   }
 }
 
-.container {
+.contain {
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
@@ -216,11 +220,6 @@ button {
   width: 100%;
   min-height: 100vh;
 }
-@media screen and (max-width: 1220px) {
-  .journal__content {
-    width: calc(100% - 248px);
-  }
-}
 .article_title {
   font-weight: 600;
   font-size: 38px;
@@ -255,7 +254,7 @@ button {
   letter-spacing: 0.02em;
 }
 
-@media (max-width: 1440px) {
+@media screen and (max-width: 1440px) {
   .content {
     max-width: 660px;
   }
@@ -265,8 +264,9 @@ button {
   .card{
     max-width: 300px;
   }
+ 
 }
-@media (max-width: 992px) {
+@media screen and (max-width: 992px) {
  
   .content {
     max-width: 660px;
@@ -278,7 +278,7 @@ button {
     display: none;
   }
 }
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .content {
     max-width: 420px;
   }
@@ -289,7 +289,7 @@ button {
     width: 100%;
   }
 }
-@media (max-width: 576px) {
+@media screen and (max-width: 576px) {
   .content {
     max-width: 340px;
   }

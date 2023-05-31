@@ -1,4 +1,4 @@
-import Navbar from "../navbar/Navbar";
+import PublicNavbar from "../navbar/PublicNavbar"
 
 type Props = {children: React.ReactNode}
 
@@ -6,7 +6,7 @@ function PublicLayout({ children }: Props) {
   return (
     <div>
     <nav>
-     <Navbar />
+      <PublicNavbar/>
    </nav>
    <div className="container">
    {children}

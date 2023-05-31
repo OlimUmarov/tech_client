@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { postsApi } from "../../api/postsApi";
 import { ArticleCard } from "../../components/posts/ArticleCard";
 import { Posts } from "../../types/posts";
@@ -7,7 +7,7 @@ import { Link, useParams } from "react-router-dom";
 
 function Categories() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
-  const [catPosts,setCatPosts] = useState<Array<Posts>>([])
+  const [catPosts, setCatPosts] = useState<Array<Posts>>([]);
   const { id } = useParams();
 
   const getPosts = async (catId: string | undefined) => {
@@ -15,7 +15,7 @@ function Categories() {
       const response: AxiosResponse<any> = await postsApi.allPosts();
       const data = response.data.results;
       const filteredPost = data.filter((post) => post.category == catId);
-      setPostList(data)
+      setPostList(data);
       setCatPosts(filteredPost);
     } catch (error: any) {
       console.log(error.message);
@@ -34,7 +34,11 @@ function Categories() {
       title: post.title,
       user_id: post.user_id,
     };
-    return <ArticleCard {...props} key={post.id} />;
+    return (
+      <Link to={`/post/${post.id}`} key={post.id}>
+        <ArticleCard {...props} />
+      </Link>
+    );
   });
 
   const showCatPosts: JSX.Element[] = catPosts.map((post) => {
@@ -49,7 +53,11 @@ function Categories() {
       title: post.title,
       user_id: post.user_id,
     };
-    return <ArticleCard {...props} key={post.id} />;
+    return (
+      <Link to={`/post/${post.id}`} key={post.id}>
+        <ArticleCard {...props} />
+      </Link>
+    );
   });
 
   useEffect(() => {
@@ -58,16 +66,15 @@ function Categories() {
 
   return (
     <div className="bg-slate-50">
-      {catPosts.length ? 
-        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-8 pt-8 pb-8  container">
+      {catPosts.length ? (
+        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-8 pt-8 pb-8  contain">
           {showCatPosts}
         </div>
-       :(
-        <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-8 pt-8 pb-8   container">
+      ) : (
+        <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-8 pt-8 pb-8   contain">
           {posts}
-          </div>
-       )
-      }
+        </div>
+      )}
     </div>
   );
 }

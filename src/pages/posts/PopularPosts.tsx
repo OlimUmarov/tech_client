@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { postsApi } from "../../api/postsApi";
 import { ArticleCard } from "../../components/posts/ArticleCard";
 import { Posts } from "../../types/posts";
+import { Link} from "react-router-dom";
+
 
 function PopularPosts() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
@@ -23,7 +25,11 @@ function PopularPosts() {
       title: post.title,
       user_id: post.user_id,
     };
-    return <ArticleCard {...props} key={post.id} />;
+    return (
+      <Link to={`/post/${post.id}`} key={post.id}>
+        <ArticleCard {...props} />
+      </Link>
+    );
   });
 
   useEffect(() => {
@@ -32,7 +38,7 @@ function PopularPosts() {
 
   return (
     <div className="bg-slate-50">
-      <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-8 pt-8 pb-8  container">
+      <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-8 pt-8 pb-8  contain">
         {posts}
       </div>
     </div>
