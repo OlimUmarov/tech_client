@@ -9,6 +9,8 @@ import PrivateLayout from '../components/layouts/PrivateLayout'
 import PublicLayout from '../components/layouts/PublicLayout'
 import Categories from '../pages/posts/Categories'
 import NotFound from '../pages/error/NotFound'
+import { Post } from '../pages/posts/Post'
+import { CreatePost } from '../pages/userPosts/CreatePost'
 
 export const publicRoutes = createBrowserRouter([
     {
@@ -79,13 +81,35 @@ export const publicRoutes = createBrowserRouter([
           path: '/categories',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
           element: <PrivateLayout> <Categories/> </PrivateLayout>,
-          index: true,
+          children: [
+            {
+              path: '/categories/:id',
+            },
+          ]
         },
         {
           path: '/my-posts',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
           element: <PrivateLayout> <MyPosts/> </PrivateLayout>,
-          index: true,
+          children: [
+            {
+              path: '/my-posts/:id',
+            },
+          ]
+        },
+        {
+          path: '/my-posts/create-post',
+          element: <PrivateLayout> <CreatePost/> </PrivateLayout>,
+        },
+        {
+          path: `/post`,
+          errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
+          element: <PrivateLayout> <Post/> </PrivateLayout>,
+          children: [
+            {
+              path: '/post/:id',
+            },
+          ]
         },   
         {
           path: '*',

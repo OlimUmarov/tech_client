@@ -8,7 +8,7 @@ function PublicLayout({ children }: Props) {
     <nav>
      <Navbar />
    </nav>
-   <div className="App">
+   <div className="container">
    {children}
    </div>
     

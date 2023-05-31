@@ -3,25 +3,25 @@ import { publicAxios } from "../lib/publicAxios";
 
 interface Posts {
   title: string;
-  shortContent: string;
+  shortContent?: string;
   content: string;
   category: number;
-  user_id: number;
+  user_id?: number;
+  img?:string;
 }
 
 export const postsApi = {
-  allPosts: async () => await publicAxios.get("/posts"),
-  getPosts: async (id: number) => await publicAxios.get(`/posts:${id}`),
-  postPost: async (data: Posts) => await privateAxios.post("/users", {
-      title: data.title,
-      shortContent: data.shortContent,
-      content: data.content,
-      category: data.category,
-      user_id: data.user_id,
-    }),
+  allPosts: async () => await publicAxios.get(`/posts`),
+  allPostsByPage: async (page: number) => await publicAxios.get(`/posts?page=${page}`),
+  getPost: async (id: string |undefined) => await publicAxios.get(`/posts/${id}`),
+  postPost: async (data:FormData) => await privateAxios.post("/posts", data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }),
   getMyPosts: async () => await privateAxios.get("/posts/my"),
-  getMyPost: async (id: number) => await privateAxios.get(`/posts/my:${id}`),
-  delMyPost: async (id: number) => await privateAxios.post(`/posts/my:${id}`),
+  getMyPost: async (id: string | undefined) => await privateAxios.get(`/posts/my:${id}`),
+  delMyPost: async (id: string|undefined) => await privateAxios.post(`/posts/my:${id}`),
 
   getLikes: async () => await publicAxios.get(`/posts/likes`),
   postLike: async () => await privateAxios.post(`/posts/like`),

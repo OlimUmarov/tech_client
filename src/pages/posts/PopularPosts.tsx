@@ -8,7 +8,6 @@ function PopularPosts() {
 
   const getPosts = async () => {
     const response = await postsApi.allPosts();
-    console.log(response.data.results);
     setPostList(response.data.results);
   };
 
@@ -24,8 +23,7 @@ function PopularPosts() {
       title: post.title,
       user_id: post.user_id,
     };
-    return <ArticleCard {...props} key={post.id} />
-    
+    return <ArticleCard {...props} key={post.id} />;
   });
 
   useEffect(() => {
@@ -33,10 +31,12 @@ function PopularPosts() {
   }, []);
 
   return (
-  <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-4 mt-10">
-    {posts}
+    <div className="bg-slate-50">
+      <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-8 pt-8 pb-8  container">
+        {posts}
+      </div>
     </div>
-  )
+  );
 }
 
-export default PopularPosts
+export default PopularPosts;

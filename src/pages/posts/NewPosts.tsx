@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { postsApi } from "../../api/postsApi";
 import { ArticleCard } from "../../components/posts/ArticleCard";
 import { Posts } from "../../types/posts";
+import { Link } from "react-router-dom";
 
 function NewPosts() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
 
   const getPosts = async () => {
     const response = await postsApi.allPosts();
-    console.log(response.data.results);
     setPostList(response.data.results);
   };
 
@@ -24,8 +24,11 @@ function NewPosts() {
       title: post.title,
       user_id: post.user_id,
     };
-    return <ArticleCard {...props} key={post.id} />
-    
+    return (
+      <Link to={`/post/${post.id}`} key={post.id}>
+        <ArticleCard {...props} />
+      </Link>
+    );
   });
 
   useEffect(() => {
@@ -33,10 +36,12 @@ function NewPosts() {
   }, []);
 
   return (
-  <div className="grid grid-cols-2 max-lg:grid-cols-1 gap-8 mt-10">
-    {posts}
+    <div className="bg-slate-50">
+      <div className="grid grid-cols-2 max-lg:grid-cols-2 gap-8 pt-8 pb-8 container ">
+        {posts}
+      </div>
     </div>
-  )
+  );
 }
 
 export default NewPosts;

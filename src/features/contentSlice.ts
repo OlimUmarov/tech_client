@@ -5,7 +5,8 @@ type InititialProps = {
     showAlert: {
         message: string,
         color: "red" | "green"
-    }
+    },
+    contentText: string
 }
 
 const initialState: InititialProps = {
@@ -13,7 +14,8 @@ const initialState: InititialProps = {
     showAlert: {
         message: "",
         color: "red"
-    }
+    },
+    contentText: ""
 }
 
 const contentSlice = createSlice({
@@ -26,9 +28,12 @@ const contentSlice = createSlice({
         changeAlert: (state, action: PayloadAction<{message:string,color: "red" | "green"}>) => {
             state.showAlert = action.payload;
           },
+        changeContentText: (state, action: PayloadAction<string>) => {
+            state.contentText = action.payload
+        }
     }
 })
 
 
 export default contentSlice.reducer
-export const { changeLogin, changeAlert  } = contentSlice.actions
+export const { changeLogin, changeAlert, changeContentText  } = contentSlice.actions

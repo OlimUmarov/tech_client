@@ -10,7 +10,7 @@ function PrivateLayout({ children }: Props) {
        <nav>
         <Navbar />
       </nav>
-      <div className="App">
+      <div className="bg-white">
       {children}
       </div>
        

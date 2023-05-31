@@ -202,7 +202,7 @@ const SignUp = () => {
                 <label className="label">Shahar</label>
                 <select
                   {...register("city_id")}
-                  className={` input border border-white pl-4 ${
+                  className={`select input border border-white pl-4 ${
                     errors.password?.message && "border-red-300"
                   }`}
                 >

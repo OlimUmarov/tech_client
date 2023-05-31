@@ -61,3 +61,7 @@ a:-webkit-any-link {
     background-color: #8387c5;
     box-shadow: inset 2px 2px 5px 0 hsla(0,0%,100%,.5);
 }
+
+a, div, form, input, li, p, section, span {
+  box-sizing: border-box;
+}

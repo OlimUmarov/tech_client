@@ -1,9 +1,11 @@
-import React from 'react'
+import { TextEditor } from "../../components/posts/TextEditor"
 
-type Props = {}
-
-const CreatePost = (props: Props) => {
+export const CreatePost = () => {
   return (
-    <div>CreatePost</div>
+    <div className="bg-slate-50 ">
+      <div className="container ">
+        <TextEditor/>
+      </div>
+    </div>
   )
 }

@@ -9,10 +9,10 @@ const name: nameType =
     }
 
 const links: linkType = {
-    signUp: "sign-up",
-    login: "login",
-    showMore: "sign-up",
-    myPosts: "my-posts",
+    signUp: "/sign-up",
+    login: "/login",
+    showMore: "/sign-up",
+    myPosts: "/my-posts",
 }
 
   
