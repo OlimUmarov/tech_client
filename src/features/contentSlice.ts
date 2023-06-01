@@ -6,7 +6,7 @@ type InititialProps = {
         message: string,
         color: "red" | "green"
     },
-    contentText: string
+    isLoading: "loading" | "success" | "stable"
 }
 
 const initialState: InititialProps = {
@@ -15,7 +15,7 @@ const initialState: InititialProps = {
         message: "",
         color: "red"
     },
-    contentText: ""
+    isLoading: "stable"
 }
 
 const contentSlice = createSlice({
@@ -28,12 +28,12 @@ const contentSlice = createSlice({
         changeAlert: (state, action: PayloadAction<{message:string,color: "red" | "green"}>) => {
             state.showAlert = action.payload;
           },
-        changeContentText: (state, action: PayloadAction<string>) => {
-            state.contentText = action.payload
+        changeLoading: (state, action: PayloadAction<"loading" | "success" | "stable">) => {
+            state.isLoading = action.payload
         }
     }
 })
 
 
 export default contentSlice.reducer
-export const { changeLogin, changeAlert, changeContentText  } = contentSlice.actions
+export const { changeLogin, changeAlert, changeLoading  } = contentSlice.actions

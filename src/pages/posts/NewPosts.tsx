@@ -5,6 +5,7 @@ import { Posts } from "../../types/posts";
 import { Link } from "react-router-dom";
 import { changeAlert } from "../../features/contentSlice";
 import { useAppDispatch } from "../../app/hook";
+import { ArticleCardSkeleton } from "../../components/skeletons/ArticleCardSkeleton";
 
 function NewPosts() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
@@ -49,9 +50,11 @@ function NewPosts() {
   }, []);
 
   return (
-    <div className="bg-slate-50">
-      <div className="grid grid-cols-2 max-lg:grid-cols-2 gap-8 pt-8 pb-8 contain ">
+    <div className="bg-slate-50 ">
+      <div className="grid grid-cols-2 max-lg:grid-cols-1 max-sm:grid-cols-1 gap-8 pt-8 pb-8 contain">
         {posts}
+
+        <ArticleCardSkeleton />
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { changeAlert } from "../../features/contentSlice";
+import { changeAlert,changeLoading } from "../../features/contentSlice";
 import { useAppDispatch } from "../../app/hook";
 import { Post, postsApi } from "../../api/postsApi";
-import Button from "../buttons/Button";
+import { LoadingButton } from "../buttons/LoadingButton";
 import { Category, categoriesApi } from "../../api/categoriesApi";
 import { imageUrlToFile } from "../../utils/imgUrlToFile";
 
@@ -60,11 +60,11 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
   };
 
   const sendPost = async () => {
-    if (!convertedImage)
-      return dispatch(
-        changeAlert({ message: "Xatolik yuz berdi!", color: "red" })
-      );
-
+    dispatch(changeLoading("loading"))
+    if (!convertedImage){
+      dispatch(changeAlert({ message: "Xatolik yuz berdi!", color: "red" }));
+      dispatch(changeLoading("stable"));
+      }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", editorContent);
@@ -90,12 +90,12 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
           setShortContent("");
           setSelectedFile(null);
           setReload(true)
+          dispatch(changeLoading("success"));
         }
       })
       .catch((err) => {
-        dispatch(
-          changeAlert({ message: err.response.statusText, color: "red" })
-        );
+      dispatch(changeAlert({ message: err.response.statusText, color: "red" }));
+      dispatch(changeLoading("stable"));
       });
   };
 
@@ -163,7 +163,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
   return (
     <div className="content pt-10 pb-10">
       <h1 className="text-3xl font-medium max-md:text-2xl max-sm:text-xl pb-6">
-        Post Yaratish
+        Postni Yangilash
       </h1>
 
       {/* Set  Title  */}
@@ -246,11 +246,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
       </div>
 
       <div className="pt-10">
-        <Button
-          title="Malumotlarni yuborish"
-          active={true}
-          onClick={sendPost}
-        />
+      <LoadingButton title="Yuborish" onClick={sendPost} />
       </div>
     </div>
   );

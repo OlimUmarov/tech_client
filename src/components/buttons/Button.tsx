@@ -1,6 +1,5 @@
+// import { changeLoading } from "../../features/contentSlice";
 import { useAppSelector } from "../../app/hook";
-// import { changeLogin } from "../../features/contentSlice";
-// import { removeItem } from "../../lib/itemStorage"; useAppDispatch
 import "../../App.css";
 
 type Props = {
@@ -10,8 +9,13 @@ type Props = {
   onClick?: () => void,
 };
 
-const Button = ({ title, active, width,onClick }: Props) => {
+const Button = ({ title, active, width,onClick}: Props) => {
   const { isLogin } = useAppSelector((state) => state.contentSlice);
+
+  // const dispatch = useAppDispatch();
+  // dispatch(changeLogin(true));
+
+ 
 
   return (
     <div>

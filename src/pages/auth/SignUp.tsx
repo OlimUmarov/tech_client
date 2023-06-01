@@ -1,8 +1,4 @@
-import {
-  useState,
-  useEffect,
-  InputHTMLAttributes,
-} from "react";
+import { useState, useEffect, InputHTMLAttributes } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,13 +6,13 @@ import schema from "../../lib/schema";
 import DatePicker from "react-multi-date-picker";
 import InputMask from "react-input-mask";
 import * as yup from "yup";
-import Button from "../../components/buttons/Button";
 import Gender from "../../components/auth/Gender";
-import buttonNames from "../../components/buttons/buttonNames";
 import authorization, { register } from "../../api/authApi";
 import { Cities, citiesApi } from "../../api/citiesApi";
 import { useAppDispatch } from "../../app/hook";
-import { changeAlert } from "../../features/contentSlice";
+import { changeAlert,changeLoading } from "../../features/contentSlice";
+import { LoadingButton } from "../../components/buttons/LoadingButton";
+import buttonNames from "../../components/buttons/buttonNames";
 
 // type Props = {
 //   props: Props
@@ -53,21 +49,23 @@ const SignUp = () => {
   };
 
   const getCities = async () => {
-   await citiesApi.getCities().then((res) => {
-    if(res.status === 200){
-      setCitiesList(res.data.results);
-    }
-   }).catch((err) => {
-    dispatch(
-      changeAlert({ message: err.response.statusText, color: "red" })
-    );
-   })
+    await citiesApi
+      .getCities()
+      .then((res) => {
+        if (res.status === 200) {
+          setCitiesList(res.data.results);
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          changeAlert({ message: err.response.statusText, color: "red" })
+        );
+      });
   };
 
   // Send Form data to Server
-  const onSubmit = async (data: FormData) => {
-    console.log("OnSubmit");
-
+  const onSubmit = async (data: FormData) => {    
+    dispatch(changeLoading("loading"))
     const newSchema: register = {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -85,12 +83,14 @@ const SignUp = () => {
         if (res.status === 200) {
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           navigate("/login");
+          dispatch(changeLoading("success"))
         }
       })
       .catch((err) => {
         dispatch(
           changeAlert({ message: err.response.statusText, color: "red" })
         );
+        dispatch(changeLoading("stable"))
       });
   };
 
@@ -290,11 +290,11 @@ const SignUp = () => {
                 )}
               </span>
             </div>
-            <Button
-              title={buttonNames.name.signUp}
-              active={true}
-              width={true}
-            />
+            
+            {/* <button type="submit">sadas</button> */}
+            <LoadingButton 
+            onClick={handleSubmit(onSubmit)}
+            title={buttonNames.name.signUp}/>
           </form>
         </section>
       </div>

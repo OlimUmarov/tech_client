@@ -2,14 +2,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/buttons/Button";
 import buttonNames from "../../components/buttons/buttonNames";
 import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
-import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hook";
-import { changeAlert, changeLogin } from "../../features/contentSlice";
+import { changeAlert, changeLogin,changeLoading } from "../../features/contentSlice";
 import { setItem } from "../../lib/itemStorage";
+import { LoadingButton } from "../../components/buttons/LoadingButton";
 
 type FormData = yup.InferType<typeof schemaLogin>;
 
@@ -27,6 +26,7 @@ const Login = () => {
   });
 
   const onSubmit = async (data: FormData) => {
+    dispatch(changeLoading("loading"))
     const newSchema: login = {
       email: data.email,
       password: data.password,
@@ -39,19 +39,16 @@ const Login = () => {
           setItem("access_token", res.data.token);
           navigate("/");
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
+          dispatch(changeLoading("success"))
         }
       })
       .catch((err) => {
         dispatch(
           changeAlert({ message: err.response.statusText, color: "red" })
         );
-        console.log(err.response.data.message);
+        dispatch(changeLoading("stable"))
       });
   };
-
-  useEffect(() => {
-    console.log(showAlert);
-  }, [showAlert]);
 
   return (
     <div>
@@ -103,7 +100,10 @@ const Login = () => {
               </span>
             </div>
 
-            <Button title={buttonNames.name.login} active={true} width={true} />
+            <LoadingButton
+            onClick={handleSubmit(onSubmit)}
+            title={buttonNames.name.login}
+            />
           </form>
         </section>
       </div>

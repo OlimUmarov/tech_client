@@ -1,11 +1,11 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { changeAlert } from "../../features/contentSlice";
+import { changeAlert, changeLoading } from "../../features/contentSlice";
 import { useAppDispatch } from "../../app/hook";
 import { postsApi } from "../../api/postsApi";
-import Button from "../buttons/Button";
 import { Category, categoriesApi } from "../../api/categoriesApi";
+import { LoadingButton } from "../buttons/LoadingButton";
 
 const quillModules = {
   toolbar: [
@@ -37,6 +37,7 @@ export const CreatePosts = () => {
   const [editorContent, setEditorContent] = useState<string>("");
   const dispatch = useAppDispatch();
   const [file, setFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const getCategories = async () => {
     await categoriesApi
@@ -52,10 +53,13 @@ export const CreatePosts = () => {
   };
 
   const sendPost = async () => {
-    if (!file)
-      return dispatch(
+    dispatch(changeLoading("loading"));
+    if (!file){
+      dispatch(
         changeAlert({ message: "Xatolik yuz berdi!", color: "red" })
       );
+      dispatch(changeLoading("stable"));
+    }
 
     const formData = new FormData();
     formData.append("title", title);
@@ -64,29 +68,38 @@ export const CreatePosts = () => {
     formData.append("shortContent", shortContent);
     formData.append("img", file);
 
-      await postsApi
-        .postPost(formData)
-        .then((res) => {
-          if (res.status === 200) {
-            dispatch(changeAlert({ message: res.statusText, color: "green" }));
-              setTitle("")
-            setEditorContent("")
-            setCat_id("")
-            setShortContent("")
-            setFile(null)
-          }
-        })
-        .catch((err) => {
-          dispatch(
-            changeAlert({ message: err.response.statusText, color: "red" })
-          );
-        })
-        
+    await postsApi
+      .postPost(formData)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(changeAlert({ message: res.statusText, color: "green" }));
+          setTitle("");
+          setEditorContent("");
+          setCat_id("");
+          setShortContent("");
+          setFile(null);
+          dispatch(changeLoading("success"));
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          changeAlert({ message: err.response.statusText, color: "red" })
+        );
+        dispatch(changeLoading("stable"));
+      });
   };
 
   const handleSelectFile = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files && e.currentTarget.files.length > 0) {
       setFile(e.currentTarget.files[0]);
+      const file = e.currentTarget.files && e.currentTarget.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreviewUrl(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 
@@ -95,13 +108,9 @@ export const CreatePosts = () => {
     setCat_id(selectedValue);
   };
 
-
   const categories = categoryList.map((category: Category) => {
     return (
-      <option
-        key={category.id}
-        value={category.id}
-      >
+      <option key={category.id} value={category.id}>
         {category.name}
       </option>
     );
@@ -149,10 +158,11 @@ export const CreatePosts = () => {
         <h1 className="text-md font-medium max-md:text-base max-sm:text-sm">
           Kategoriyalardan birini tanlang
         </h1>
-        <select 
-        value={cat_id}
-        onChange={handleCategoryChange}
-        className="w-full p-3 text-sm border border-gray-400 outline-none focus:border-blue-500">
+        <select
+          value={cat_id}
+          onChange={handleCategoryChange}
+          className="w-full p-3 text-sm border border-gray-400 outline-none focus:border-blue-500"
+        >
           <option value="" hidden>
             Kategoriyalar
           </option>
@@ -167,7 +177,7 @@ export const CreatePosts = () => {
         </h1>
         <div className="h-96 max-sm:h-80">
           <ReactQuill
-          value={editorContent}
+            value={editorContent}
             onChange={(e: any) => setEditorContent(e)}
             className="h-full"
             modules={quillModules}
@@ -177,18 +187,12 @@ export const CreatePosts = () => {
         </div>
       </div>
 
-      {/* Set Image  */}
-      <div className="pt-10">
+       {/* Set Image  */}
+       <div className="pt-10 mb-10 flex flex-col justify-center items-start gap-4">
+       {previewUrl && <img src={previewUrl} alt="Selected" />  }     
         <input type="file" onChange={handleSelectFile} />
       </div>
-
-      <div className="pt-10">
-        <Button
-          title="Malumotlarni yuborish"
-          active={true}
-          onClick={sendPost}
-        />
-      </div>
+        <LoadingButton title="Yuborish" onClick={sendPost} />
     </div>
   );
 };
