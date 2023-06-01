@@ -84,10 +84,13 @@ export const Post = () => {
   ));
 
   useEffect(() => {
-    getPost();
     getPosts();
     getCategories();
-  }, [id]);
+  }, []);
+
+  useEffect(()=>{
+    getPost();
+  },[id])
 
   return (
     <div>

@@ -3,13 +3,26 @@ import { postsApi } from "../../api/postsApi";
 import { ArticleCard } from "../../components/posts/ArticleCard";
 import { Posts } from "../../types/posts";
 import { Link } from "react-router-dom";
+import { changeAlert } from "../../features/contentSlice";
+import { useAppDispatch } from "../../app/hook";
 
 function NewPosts() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
+  const dispatch = useAppDispatch();
 
   const getPosts = async () => {
-    const response = await postsApi.allPosts();
-    setPostList(response.data.results);
+    await postsApi
+      .allPosts()
+      .then((res) => {
+        if (res.status === 200) {
+          setPostList(res.data.results);
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          changeAlert({ message: err.response.statusText, color: "red" })
+        );
+      });
   };
 
   const posts = postList.map((post) => {

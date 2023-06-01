@@ -11,6 +11,7 @@ import Categories from '../pages/posts/Categories'
 import NotFound from '../pages/error/NotFound'
 import { Post } from '../pages/posts/Post'
 import { CreatePost } from '../pages/userPosts/CreatePost'
+import { EditPost } from '../pages/userPosts/EditPost'
 
 export const publicRoutes = createBrowserRouter([
     {
@@ -100,6 +101,10 @@ export const publicRoutes = createBrowserRouter([
         {
           path: '/my-posts/create-post',
           element: <PrivateLayout> <CreatePost/> </PrivateLayout>,
+        },
+        {
+          path: '/my-posts/edit-post/:id',
+          element: <PrivateLayout> <EditPost/> </PrivateLayout>,
         },
         {
           path: `/post`,

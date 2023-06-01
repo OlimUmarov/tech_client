@@ -16,7 +16,7 @@ const Button = ({ title, active, width,onClick }: Props) => {
   return (
     <div>
       <button
-        className={`py-2.5 px-5 border-2 max-md:py-1.5 max-md:px-2.5 max-md:font-xs font-medium rounded-xl mr-2  mb-2  ${
+        className={`py-1 px-3 border-2  max-md:font-xs font-base rounded-md mr-2  mb-2  ${
           active ? "blue" : "white"
         } ${width && "w-full"} 
            ${isLogin && "cursor-not-allowed"}`}

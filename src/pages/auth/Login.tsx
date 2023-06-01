@@ -6,18 +6,17 @@ import Button from "../../components/buttons/Button";
 import buttonNames from "../../components/buttons/buttonNames";
 import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
-import { AxiosResponse } from "axios";
-import { useEffect} from "react";
-import { useAppSelector,useAppDispatch } from "../../app/hook";
-import { changeAlert, changeLogin} from "../../features/contentSlice";
+import { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../app/hook";
+import { changeAlert, changeLogin } from "../../features/contentSlice";
 import { setItem } from "../../lib/itemStorage";
 
 type FormData = yup.InferType<typeof schemaLogin>;
 
 const Login = () => {
   const navigate = useNavigate();
-  const {showAlert} = useAppSelector((state) => state.contentSlice);
-  const dispatch = useAppDispatch()
+  const { showAlert } = useAppSelector((state) => state.contentSlice);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -32,33 +31,38 @@ const Login = () => {
       email: data.email,
       password: data.password,
     };
-    try {
-      const response: AxiosResponse<any> = await authorization.login(newSchema);
-      
-      if (response.status === 200) {
-        dispatch(changeLogin(true))
-        setItem("access_token",response.data.token)
-        navigate("/");
-        dispatch(changeAlert({message: response.statusText,color: "green"}))
-      }
-    } catch (error: any) {
-      dispatch(changeAlert({message: error.response.data.message,color: "red"}))
-      console.log(error.response.data.message);
-    }
+    await authorization
+      .login(newSchema)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(changeLogin(true));
+          setItem("access_token", res.data.token);
+          navigate("/");
+          dispatch(changeAlert({ message: res.statusText, color: "green" }));
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          changeAlert({ message: err.response.statusText, color: "red" })
+        );
+        console.log(err.response.data.message);
+      });
   };
 
-  useEffect(()=> {
-    console.log(showAlert)
-  },[showAlert])
+  useEffect(() => {
+    console.log(showAlert);
+  }, [showAlert]);
 
   return (
     <div>
       <div className="bg-slate-50 min-h-screen flex flex-col items-center py-10 ">
-      <section className=" w-[600px] max-sm:max-w-[300px]   flex flex-col justify-center items-center">
-        <h1 className="text-2xl max-md:text-xl  font-semibold pb-2">Tech ga kirish</h1>
-        <p className="text-md max-md:text-base text-gray-500 pb-6">
-          Qaytib kelganingizdan xursandmiz! Malumotlaringizni kiriting.
-        </p>
+        <section className=" w-[600px] max-sm:max-w-[300px]   flex flex-col justify-center items-center">
+          <h1 className="text-2xl max-md:text-xl  font-semibold pb-2">
+            Tech ga kirish
+          </h1>
+          <p className="text-md max-md:text-base text-gray-500 pb-6">
+            Qaytib kelganingizdan xursandmiz! Malumotlaringizni kiriting.
+          </p>
         </section>
 
         <section className="flex flex-col w-[450px] max-md:w-96  max-sm:w-80 max-sm:px-4 bg-white border drop-shadow-xl border-slate-200 p-6 rounded-lg">
@@ -107,4 +111,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default Login;

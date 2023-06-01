@@ -1,4 +1,8 @@
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  InputHTMLAttributes,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,10 +14,9 @@ import Button from "../../components/buttons/Button";
 import Gender from "../../components/auth/Gender";
 import buttonNames from "../../components/buttons/buttonNames";
 import authorization, { register } from "../../api/authApi";
-import { AxiosResponse } from "axios";
 import { Cities, citiesApi } from "../../api/citiesApi";
 import { useAppDispatch } from "../../app/hook";
-import { changeAlert, changeLogin } from "../../features/contentSlice";
+import { changeAlert } from "../../features/contentSlice";
 
 // type Props = {
 //   props: Props
@@ -50,8 +53,15 @@ const SignUp = () => {
   };
 
   const getCities = async () => {
-    const response: AxiosResponse<any> = await citiesApi.getCities();
-    setCitiesList(response.data.results);
+   await citiesApi.getCities().then((res) => {
+    if(res.status === 200){
+      setCitiesList(res.data.results);
+    }
+   }).catch((err) => {
+    dispatch(
+      changeAlert({ message: err.response.statusText, color: "red" })
+    );
+   })
   };
 
   // Send Form data to Server
@@ -69,16 +79,19 @@ const SignUp = () => {
       password: data.password,
     };
 
-    try {
-      const response: AxiosResponse<any> = await authorization.register(
-        newSchema
-      );
-      dispatch(changeAlert({ message: response.data.message, color: "green" }));
-      navigate("/login");
-    } catch (error: any) {
-      dispatch(changeAlert({ message: error.message, color: "red" }));
-      console.log(error.message);
-    }
+    await authorization
+      .register(newSchema)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(changeAlert({ message: res.statusText, color: "green" }));
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          changeAlert({ message: err.response.statusText, color: "red" })
+        );
+      });
   };
 
   const options = citiesList.map((city: Cities) => {
@@ -96,9 +109,10 @@ const SignUp = () => {
   return (
     <div>
       <div className="bg-slate-50 min-h-screen flex flex-col items-center py-10 px-10 ">
-
         <section className="max-md:w-96 max-sm:w-80  w-[600px]  flex flex-col justify-center items-center">
-          <h1 className="text-2xl max-md:text-xl  font-semibold pb-2">Ro'yxatdan o'tish </h1>
+          <h1 className="text-2xl max-md:text-xl  font-semibold pb-2">
+            Ro'yxatdan o'tish{" "}
+          </h1>
           <p className="text-md max-md:text-base text-gray-500 pb-6">
             Ro'yxatdan o'tish uchun, iltimos ma'lumotlaringnizni kiriting
           </p>
@@ -175,6 +189,7 @@ const SignUp = () => {
             <div className="flex w-full max-md:flex-col">
               <span className="w-2/3 h-24 max-md:w-full max-md:pr-0 flex flex-col gap-1 pr-1">
                 <label className="label">Telefon raqami</label>
+
                 <InputMask
                   mask="+\9\98(99) 999-99-99"
                   maskChar="_"
@@ -191,6 +206,7 @@ const SignUp = () => {
                     inputProps: React.InputHTMLAttributes<HTMLInputElement>
                   ) => <input {...inputProps} />}
                 </InputMask>
+
                 {errors.phone && (
                   <p className="text-red-500 text-xs ">
                     {errors.phone.message}

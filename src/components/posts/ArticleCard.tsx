@@ -2,11 +2,11 @@ import { Posts } from "../../types/posts";
 import { MdVisibility } from "react-icons/md";
 import { formatDate } from "./formatDate";
 
-export const ArticleCard = (props: Posts) => {
+export const ArticleCard = (props: Posts,) => {
 
   return (
     <div 
-    className="post-item flex  max-md:flex-col max-lg:w-full max-md:w-full max-sm:w-full cursor-pointer "
+    className="relative post-item flex max-md:flex-col max-lg:w-full max-md:w-full max-sm:w-full cursor-pointer "
     >
 
       <div className="post-item__content">
@@ -27,18 +27,12 @@ export const ArticleCard = (props: Posts) => {
           <span className="post-item__btn flex items-center">
             {formatDate(props.actived_at)}
           </span>
-    
-          {/* <div className="flex justify-center items-center gap-1">
-            <AiOutlineLike size={18} color="#7CA9C2" />
-            <span className="post-item__btn">{props.likes}</span>
-          </div> */}
-         
         </section>
       </div>
 
       <section
         color="blue-gray"
-        className="post-item__img "
+        className="post-item__img"
       >
         <img
           src={`http://tech.nextlevelgroup.uz/${props.img}`}

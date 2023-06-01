@@ -13,7 +13,7 @@ export const Alert = () => {
         setShow(true)
       const timer = setTimeout(() => {
         setShow(false)
-      }, 3000);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, [showAlert]);
@@ -44,7 +44,7 @@ export const Alert = () => {
                 <MdDone size={15} color={"white"} />
               </span>
               <span className="font-semibold">
-                Siz muvaffaqiyatli tizimga kirdingiz!
+              {showAlert.message ? showAlert.message : "Siz muvaffaqiyatli tizimga kirdingiz!"} 
               </span>
             </div>
           )}

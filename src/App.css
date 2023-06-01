@@ -113,7 +113,7 @@
   transition: all 0.4s ease;
 }
 .post-item:hover {
-  transform: scale(1.025);
+  transform: scale(1.01);
   background-color: #ffffff;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
     drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
@@ -132,6 +132,11 @@
 }
 .trans {
   transition: all 0.5s;
+}
+.post-item__img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

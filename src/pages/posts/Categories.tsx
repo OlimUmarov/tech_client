@@ -2,25 +2,33 @@ import { useEffect, useState } from "react";
 import { postsApi } from "../../api/postsApi";
 import { ArticleCard } from "../../components/posts/ArticleCard";
 import { Posts } from "../../types/posts";
-import { AxiosResponse } from "axios";
 import { Link, useParams } from "react-router-dom";
+import { changeAlert } from "../../features/contentSlice";
+import { useAppDispatch } from "../../app/hook";
 
 function Categories() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
   const [catPosts, setCatPosts] = useState<Array<Posts>>([]);
   const { id } = useParams();
+  const dispatch = useAppDispatch();
 
   const getPosts = async (catId: string | undefined) => {
-    try {
-      const response: AxiosResponse<any> = await postsApi.allPosts();
-      const data = response.data.results;
+   await postsApi.allPosts().then((res) => {
+    if(res.status === 200){
+      const data = res.data.results;
       const filteredPost = data.filter((post) => post.category == catId);
       setPostList(data);
       setCatPosts(filteredPost);
-    } catch (error: any) {
-      console.log(error.message);
     }
+   }).catch((err) => {
+    dispatch(
+      changeAlert({ message: err.response.statusText, color: "red" })
+    );
+   })
+
   };
+
+
 
   const posts: JSX.Element[] = postList.map((post) => {
     const props = {
