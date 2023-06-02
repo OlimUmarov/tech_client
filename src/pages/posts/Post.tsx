@@ -6,6 +6,7 @@ import { Category, categoriesApi } from "../../api/categoriesApi";
 import { PostCard } from "../../components/posts/PostCard";
 import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../../components/posts/formatDate";
+import { PostSkeleton } from "../../components/skeletons/PostSkeleton";
 
 export const Post = () => {
   const [post, setPost] = useState<Posts>();
@@ -134,7 +135,7 @@ export const Post = () => {
                 __html:
                   post && post.content
                     ? post.content
-                    : `<div>Page not found</div>`,
+                    : "",
               }}
             />
           </div>
