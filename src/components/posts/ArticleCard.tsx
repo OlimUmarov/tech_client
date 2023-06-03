@@ -1,6 +1,7 @@
 import { Posts } from "../../types/posts";
 import { MdVisibility } from "react-icons/md";
 import { formatDate } from "./formatDate";
+import { BiLike } from 'react-icons/bi'
 
 export const ArticleCard = (props: Posts) => {
 
@@ -16,10 +17,14 @@ export const ArticleCard = (props: Posts) => {
             </section>
 
             <section className="flex gap-2 post-item__desc pad">
-              <span className="post-item__desc post ">design</span>
+              <span className="post-item__desc post ">{props.name}</span>
               <div className="flex justify-center items-center gap-1">
                 <MdVisibility size={18} color="#7CA9C2" />
-                <span className="post-item__btn">{props.user_id}</span>
+                <span className="post-item__btn">{props.views}</span>
+              </div>
+              <div className="flex justify-center items-center gap-1">
+                <BiLike size={18} color="#7CA9C2" />
+                <span className="post-item__btn">{props.likes}</span>
               </div>
 
               <span className="post-item__btn flex items-center">

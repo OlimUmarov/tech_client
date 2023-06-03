@@ -21,6 +21,8 @@ export const MyPosts = () => {
         }
       })
       .catch((err) => {
+        console.log(err);
+        
         dispatch(
           changeAlert({ message: err.response.statusText, color: "green" })
         );

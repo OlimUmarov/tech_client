@@ -1,15 +1,31 @@
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink,useNavigate,useSearchParams } from "react-router-dom";
 import navbarLinks from "./navbarLinks";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { UserAccount } from "../buttons/UserAccount";
 
 
 const PrivateNavbar = () => {
   const [isFocused, setIsFocused] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams] = useSearchParams();
   const location = useLocation();
+  const navigate = useNavigate(); 
 
- 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  useEffect(() => {
+    const query = searchParams.get('query') || '';
+    setSearchQuery(query);
+  }, [searchParams]);
 
   const navbars: ReactNode = navbarLinks.map((navbar) => {
     const currentPath = location.pathname === navbar.link;
@@ -73,9 +89,12 @@ const PrivateNavbar = () => {
               <input
                 type="search"
                 id="default-search"
-                className="block w-full p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
+                className="block transition-all duration-300 ease w-full p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
                 placeholder="Izlash..."
                 required
+                value={searchQuery}
+                onChange={handleInputChange} 
+                onKeyPress={handleKeyPress}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
               />

@@ -14,7 +14,7 @@ export const EditPost = () => {
       if (res.status === 200) {
         const result:Post = {
           title: res.data.data.title,
-          shortContent: res.data.data.shortcontent,
+          shortcontent: res.data.data.shortcontent,
           content: res.data.data.content,
           category: res.data.data.category,
           img: res.data.data.img,

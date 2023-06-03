@@ -60,7 +60,6 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
   };
 
   const sendPost = async () => {
-    dispatch(changeLoading("loading"))
     if (!convertedImage){
       dispatch(changeAlert({ message: "Xatolik yuz berdi!", color: "red" }));
       dispatch(changeLoading("stable"));
@@ -71,14 +70,15 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
     formData.append("category", cat_id);
     formData.append("shortContent", shortContent);
     if(!previewUrl || !selectedFile){
-      formData.append("img", convertedImage);
+      // formData.append("img", `${convertedImage}`);
     }else{
       formData.append("img", selectedFile);
     }  
     for (const pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
-        
+    dispatch(changeLoading("loading"))
+      
     await postsApi
       .putPost(post.id,formData)
       .then((res) => {
@@ -127,7 +127,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
         })
       );
     setTitle(post.title || "");
-    setShortContent(post.shortContent || "");
+    setShortContent(post.shortcontent || "");
     if (!post.category)
       return new Error("Kategoriyalar bilan xatolik yuz berdi!");
     setCat_id(post.category.id || "");
@@ -140,7 +140,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
       `http://tech.nextlevelgroup.uz/${post.img}`,
       "image"
     );
-    setConvertedImage(image)
+    return setConvertedImage(image)
    
   }
 
@@ -232,12 +232,12 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
       <div className="pt-10 flex flex-col justify-center items-start gap-4">
         {previewUrl ? (
           <img src={previewUrl} alt="Selected" />
-        ) : (
+        ) : post.img ? (
           <img
             src={`http://tech.nextlevelgroup.uz/${post.img}`}
             className="border-0 rounded-md"
           />
-        )}
+        ) : ''}
 
         <h1 className="text-md font-medium max-md:text-base max-sm:text-sm">
           Agar rasimni o'zgartirmoqchi bolsangiz, pasdaki tugmani bosing. 

@@ -1,10 +1,11 @@
 import privateAxios from "../lib/privateAxios";
 import { publicAxios } from "../lib/publicAxios";
+import { orderByType } from "../types/posts";
 
 export type Post = {
   id: number
   title: string;
-  shortContent: string;
+  shortcontent: string;
   content: string;
   category: {
     id: string,
@@ -15,8 +16,11 @@ export type Post = {
   img:string;
 }
 
+
 export const postsApi = {
-  allPosts: async () => await publicAxios.get(`/posts`),
+  allPosts: async (page: number) => await publicAxios.get(`/posts?page=${page}`),
+  filteredPosts: async (orbderBy: orderByType,page: number) => await publicAxios.get(`/posts?page=${page}&orderBy=${orbderBy}&orderDirection=DESC`),
+  paginationPosts: async (page: number) => await publicAxios.get(`/posts?page=${page}`),
   allPostsByPage: async (page: number) => await publicAxios.get(`/posts?page=${page}`),
   getPost: async (id: number) => await publicAxios.get(`/posts/${id}`),
   postPost: async (data:FormData) => await privateAxios.post("/posts", data, {

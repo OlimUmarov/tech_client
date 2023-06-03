@@ -8,12 +8,13 @@ import { useAppDispatch } from "../../app/hook";
 import { changeAlert } from "../../features/contentSlice";
 
 interface Props {
-    post_id: number;
+  title:string,
+    post_id?: number;
     toggled: boolean
     handleDialog: (isOpen: boolean)=> void
   }
 
-export const AlertDialog: React.FC<Props> = ({toggled,post_id,handleDialog}) => {
+export const AlertDialog: React.FC<Props> = ({toggled,post_id,handleDialog,title}) => {
   const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
 
@@ -52,7 +53,7 @@ export const AlertDialog: React.FC<Props> = ({toggled,post_id,handleDialog}) => 
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Siz haqiqatdan ham postni o'chirishni xoxlaysizmi?"}
+          {title}
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>Yo'q</Button>

@@ -68,7 +68,7 @@ export const CardToggleMenu = ({ post_id }: { post_id: number }) => {
           </span>
         </div>
       )}
-      <AlertDialog toggled={showDialog} post_id={post_id} handleDialog={handleDialog} />
+      <AlertDialog toggled={showDialog} post_id={post_id} handleDialog={handleDialog} title="Siz haqiqatdan ham postni o'chirishni xoxlaysizmi?"/>
     </div>
   );
 };

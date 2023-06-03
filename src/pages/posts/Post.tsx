@@ -95,7 +95,7 @@ export const Post = () => {
 
   return (
     <div>
-      <div className="flex bg-white pt-16 postContainer max-md:block">
+      <div className="flex bg-white pt-16 postContainer max-md:block min-h-screen">
         {/* Post Sidebar Categories ... */}
         <div className="sidebar">
           <div className="flex flex-col  max-md:flex-row max-md:hidden max-md:text-xs gap-5 md:text-xl font-semibold">

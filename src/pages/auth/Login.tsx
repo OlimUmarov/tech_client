@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import buttonNames from "../../components/buttons/buttonNames";
 import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
@@ -13,7 +13,7 @@ import { LoadingButton } from "../../components/buttons/LoadingButton";
 type FormData = yup.InferType<typeof schemaLogin>;
 
 const Login = () => {
-  const navigate = useNavigate();
+  const history = createBrowserHistory();
   const { showAlert } = useAppSelector((state) => state.contentSlice);
   const dispatch = useAppDispatch();
 
@@ -37,9 +37,9 @@ const Login = () => {
         if (res.status === 200) {
           dispatch(changeLogin(true));
           setItem("access_token", res.data.token);
-          navigate("/");
+          history.replace("/");
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
-          dispatch(changeLoading("success"))
+          dispatch(changeLoading("stable"))
         }
       })
       .catch((err) => {
@@ -49,6 +49,8 @@ const Login = () => {
         dispatch(changeLoading("stable"))
       });
   };
+
+ 
 
   return (
     <div>

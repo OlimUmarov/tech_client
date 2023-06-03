@@ -3,14 +3,24 @@ import { useState,useRef,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
+import { removeItem } from "../../lib/itemStorage";
+import { createBrowserHistory } from "history";
 
 export const UserAccount = () => {
   const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
   const elementRef = useRef<HTMLDivElement>(null);
+  const history = createBrowserHistory();
+
 
   function handleMenu() {
     setIsMenuClicked(!isMenuClicked);
   }
+  const handleLogout = () => {
+    handleMenu();
+    removeItem("access_token");
+    history.replace("/");
+  };
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -57,7 +67,7 @@ export const UserAccount = () => {
               Post Yaratish
             </NavLink>
             <span
-              onClick={handleMenu}
+              onClick={handleLogout}
               className="flex justify-start  text-sm items-center gap-1 text-gray-500 p-1 cursor-pointer hover:text-blue-500"
             >
               <span>

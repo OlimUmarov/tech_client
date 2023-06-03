@@ -13,5 +13,14 @@ export interface Posts {
     title: string,
     user_id?: string,
     name?: string
-    link?: string
+    link?: string,
+    views?:string,
   }
+  export type orderByType = 'created_at' | 'likes' | 'views'
+
+  export type catListType = {
+    id: number,
+    name: string,
+    parent_id: string | null
+  }
+

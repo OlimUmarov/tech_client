@@ -19,7 +19,7 @@
 }
 
 html{
-  @apply bg-slate-50
+  @apply bg-slate-50 overflow-scroll
 }
 
 select {
@@ -54,11 +54,11 @@ a:-webkit-any-link {
     --swiper-theme-color: #007aff;
 }
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 ::-webkit-scrollbar-thumb {
     border-radius: 100px;
-    background-color: #8387c5;
+    background-color: #007aff;
     box-shadow: inset 2px 2px 5px 0 hsla(0,0%,100%,.5);
 }
 
