@@ -37,6 +37,7 @@ export const MyPosts = () => {
       content: post.content,
       id: post.id,
       img: post.img,
+      views: post.views,
       likes: post.likes,
       shortcontent: post.shortcontent,
       title: post.title,

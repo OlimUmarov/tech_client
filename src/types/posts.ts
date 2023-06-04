@@ -12,7 +12,7 @@ export interface Posts {
     shortcontent: string,
     title: string,
     user_id?: string,
-    name?: string
+    name?: string,
     link?: string,
     views?:string,
   }

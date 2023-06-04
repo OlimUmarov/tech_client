@@ -17,7 +17,7 @@ export const ArticleCard = (props: Posts) => {
             </section>
 
             <section className="flex gap-2 post-item__desc pad">
-              <span className="post-item__desc post ">{props.name}</span>
+              <span className="post-item__desc post ">{props.name?.length?props.name : props.category.name}</span>
               <div className="flex justify-center items-center gap-1">
                 <MdVisibility size={18} color="#7CA9C2" />
                 <span className="post-item__btn">{props.views}</span>

@@ -1,16 +1,16 @@
 import { RiArrowDropDownLine, RiNewspaperLine } from "react-icons/ri";
 import { useState,useRef,useEffect } from "react";
+import {  useAppDispatch } from "../../app/hook";
 import { NavLink } from "react-router-dom";
 import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
 import { removeItem } from "../../lib/itemStorage";
-import { createBrowserHistory } from "history";
+import { changeLogin } from "../../features/contentSlice";
 
 export const UserAccount = () => {
   const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
   const elementRef = useRef<HTMLDivElement>(null);
-  const history = createBrowserHistory();
-
+  const dispatch = useAppDispatch()
 
   function handleMenu() {
     setIsMenuClicked(!isMenuClicked);
@@ -18,8 +18,8 @@ export const UserAccount = () => {
   const handleLogout = () => {
     handleMenu();
     removeItem("access_token");
-    history.replace("/");
-  };
+    dispatch(changeLogin(false))
+    };
 
 
   useEffect(() => {
@@ -36,16 +36,16 @@ export const UserAccount = () => {
 
   return (
     <div>
-      <div className=" w-full lg:max-w-sm" ref={elementRef}>
+      <div className="w-full lg:max-w-sm" ref={elementRef}>
         <button
           onClick={handleMenu}
-          className=" relative flex items-center blue py-1 px-2 border border-white outline-none custom-select  max-md:font-xs font-base  rounded-md "
+          className="flex items-center blue py-1 px-2 border border-white outline-none custom-select  max-md:font-xs font-base  rounded-md "
         >
           <span>Account</span>
           <RiArrowDropDownLine size={25} />
         </button>
         {isMenuClicked && (
-          <div className="absolute right-4 z-10 mt-1 p-2 border bg-white border-slate-100 flex flex-col">
+          <div className="absolute right-0 max-lg:w-40  z-10 mt-1 w-40 p-2 border bg-white border-slate-100 flex flex-col">
             <NavLink
               to="/my-posts"
               onClick={handleMenu}

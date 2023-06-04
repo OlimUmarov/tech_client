@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import Login from '../pages/auth/Login'
 import MyPosts from '../pages/userPosts/MyPosts'
 import NewPosts from '../pages/posts/NewPosts'
@@ -21,6 +21,7 @@ export const publicRoutes = createBrowserRouter([
       element: <PublicLayout><AllPosts /></PublicLayout>,
       index: true,
     },
+   
     {
       path: '/all-posts',
       errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
@@ -71,6 +72,12 @@ export const publicRoutes = createBrowserRouter([
       path: '/',
       errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
       element: <PrivateLayout> <AllPosts /> </PrivateLayout>,
+      index: true,
+    },
+    {
+      path: '/login',
+      errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
+      element: <Navigate to='/' replace  />,
       index: true,
     },
     {

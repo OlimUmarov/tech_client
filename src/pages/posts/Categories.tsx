@@ -11,22 +11,20 @@ import { categoriesApi } from "../../api/categoriesApi";
 function Categories() {
   const [catPosts, setCatPosts] = useState<Array<Posts>>([]);
   const [catList, setCatList] = useState<Array<catListType>>([]);
-  // const [currentPage, setCurrentPage] = useState<number>(1);
-  // const [totalCount, setTotalCount] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalCount, setTotalCount] = useState<number>(1);
   // const [fetching, setFetching] = useState<boolean>(true);
   const { skeleton } = useAppSelector((state) => state.contentSlice);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
   const getPosts = async (cat_id: string | undefined) => {
-    // const count: number = Math.ceil(totalCount);
+    const count: number = Math.ceil(totalCount);
 
     // if (fetching && currentPage <= count) {
-      // console.log(currentPage);
-      // console.log(count);
       dispatch(changeSkeleteon(true));
       await postsApi
-        .allPosts()
+        .allPosts(currentPage)
         .then((res) => {
           if (res.status === 200) {
             const data = res.data.results;
@@ -34,15 +32,15 @@ function Categories() {
             if (cat_id) {
               filteredPost = data.filter((post) => post.category == id);
               setCatPosts(filteredPost);
-              // setCurrentPage((prev) => prev + 1);
-              // setTotalCount(filteredPost.length);
+              setCurrentPage((prev) => prev + 1);
+              setTotalCount(filteredPost.length);
             } else {
               filteredPost = data.filter(
                 (post) => post.category == data[0].category
               );
               setCatPosts(filteredPost);
-              // setCurrentPage((prev) => prev + 1);
-              // setTotalCount(res.data.totalCount);
+              setCurrentPage((prev) => prev + 1);
+              setTotalCount(res.data.totalCount);
             }
           }
         })
@@ -55,8 +53,8 @@ function Categories() {
           // setFetching(false);
           dispatch(changeSkeleteon(false));
         });
-    // }
-  };
+    }
+  // };
 
   // const scrollHandler = (e) => {
   //   if (
@@ -154,5 +152,6 @@ function Categories() {
     </div>
   );
 }
+
 
 export default Categories;

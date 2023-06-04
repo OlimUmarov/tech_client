@@ -4,9 +4,9 @@ import "react-quill/dist/quill.snow.css";
 import { changeAlert,changeLoading } from "../../features/contentSlice";
 import { useAppDispatch } from "../../app/hook";
 import { Post, postsApi } from "../../api/postsApi";
-import { LoadingButton } from "../buttons/LoadingButton";
 import { Category, categoriesApi } from "../../api/categoriesApi";
 import { imageUrlToFile } from "../../utils/imgUrlToFile";
+import Button from "../buttons/Button";
 
 const quillModules = {
   toolbar: [
@@ -231,7 +231,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
       {/* Set Image  */}
       <div className="pt-10 flex flex-col justify-center items-start gap-4">
         {previewUrl ? (
-          <img src={previewUrl} alt="Selected" />
+          <img src={previewUrl} alt="Selected" className="w-[300px] h-[300px] object-cover" />
         ) : post.img ? (
           <img
             src={`http://tech.nextlevelgroup.uz/${post.img}`}
@@ -246,7 +246,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
       </div>
 
       <div className="pt-10">
-      <LoadingButton title="Yuborish" onClick={sendPost} />
+      <Button title="Yuborish" onClick={sendPost} />
       </div>
     </div>
   );

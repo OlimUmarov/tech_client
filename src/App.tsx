@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./utils/routes";
 import { getItem } from "./lib/itemStorage";
 import privateAxios from "./lib/privateAxios";
 import { useAppSelector, useAppDispatch } from "./app/hook";
-import { changeAlert } from "./features/contentSlice";
+import { changeAlert, changeLogin } from "./features/contentSlice";
 import { Loading } from "./components/loading/Loading";
 
 function App() {
   const { isLogin } = useAppSelector((state) => state.contentSlice);
-  const [isLogged, setLogged] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const token = getItem("access_token");
 
@@ -17,25 +16,22 @@ function App() {
     try {
       const response = await privateAxios.get("/posts/my");
       if (response.status === 200) {
-        console.log("ss");
-        
-        setLogged(true);
-      }
+        dispatch(changeLogin(true))
+            }
     } catch (error: any) {
       dispatch(changeAlert({ message: error.response.data, color: "red" }));
     }
   };
 
   useEffect(() => { 
-    console.log("aa");
     if (token) {
       fetchCheckToken();
     } else {
-      setLogged(false);
+      dispatch(changeLogin(false))
     }
-  }, [token]);
+  }, [token,isLogin]);
 
-  if (isLogged)
+  if (isLogin)
     return (
       <RouterProvider
         key={2}

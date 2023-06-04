@@ -25,7 +25,7 @@ export const PostCard = (props: Posts) => {
           src={`http://tech.nextlevelgroup.uz/${props.img}`}
           onClick={linkToPost}
           alt="img"
-          className="rounded-xl w-full h-full hover:rounded-3xl transition-all duration-300 ease-in-out"
+          className="rounded-xl object-cover w-full h-full hover:rounded-3xl transition-all duration-300 ease-in-out"
         />
       </section>
 

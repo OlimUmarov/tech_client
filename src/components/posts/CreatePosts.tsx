@@ -5,7 +5,7 @@ import { changeAlert, changeLoading } from "../../features/contentSlice";
 import { useAppDispatch } from "../../app/hook";
 import { postsApi } from "../../api/postsApi";
 import { Category, categoriesApi } from "../../api/categoriesApi";
-import { LoadingButton } from "../buttons/LoadingButton";
+import Button from "../buttons/Button";
 
 const quillModules = {
   toolbar: [
@@ -189,10 +189,10 @@ export const CreatePosts = () => {
 
        {/* Set Image  */}
        <div className="pt-10 mb-10 flex flex-col justify-center items-start gap-4">
-       {previewUrl && <img src={previewUrl} alt="Selected" />  }     
+       {previewUrl && <img src={previewUrl} alt="Selected" className="w-[300px] h-[300px] object-cover"/>  }     
         <input type="file" onChange={handleSelectFile} />
       </div>
-        <LoadingButton title="Yuborish" onClick={sendPost} />
+        <Button title="Yuborish" onClick={sendPost} />
     </div>
   );
 };

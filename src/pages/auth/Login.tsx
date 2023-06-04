@@ -1,20 +1,17 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { createBrowserHistory } from "history";
 import buttonNames from "../../components/buttons/buttonNames";
 import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
-import { useAppSelector, useAppDispatch } from "../../app/hook";
+import {  useAppDispatch } from "../../app/hook";
 import { changeAlert, changeLogin,changeLoading } from "../../features/contentSlice";
 import { setItem } from "../../lib/itemStorage";
-import { LoadingButton } from "../../components/buttons/LoadingButton";
+import Button from "../../components/buttons/Button";
 
 type FormData = yup.InferType<typeof schemaLogin>;
 
 const Login = () => {
-  const history = createBrowserHistory();
-  const { showAlert } = useAppSelector((state) => state.contentSlice);
   const dispatch = useAppDispatch();
 
   const {
@@ -37,7 +34,6 @@ const Login = () => {
         if (res.status === 200) {
           dispatch(changeLogin(true));
           setItem("access_token", res.data.token);
-          history.replace("/");
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           dispatch(changeLoading("stable"))
         }
@@ -102,7 +98,7 @@ const Login = () => {
               </span>
             </div>
 
-            <LoadingButton
+            <Button
             onClick={handleSubmit(onSubmit)}
             title={buttonNames.name.login}
             />

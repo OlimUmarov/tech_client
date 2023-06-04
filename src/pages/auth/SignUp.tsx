@@ -11,8 +11,8 @@ import authorization, { register } from "../../api/authApi";
 import { Cities, citiesApi } from "../../api/citiesApi";
 import { useAppDispatch } from "../../app/hook";
 import { changeAlert,changeLoading } from "../../features/contentSlice";
-import { LoadingButton } from "../../components/buttons/LoadingButton";
 import buttonNames from "../../components/buttons/buttonNames";
+import Button from "../../components/buttons/Button";
 
 // type Props = {
 //   props: Props
@@ -292,7 +292,7 @@ const SignUp = () => {
             </div>
             
             {/* <button type="submit">sadas</button> */}
-            <LoadingButton 
+            <Button 
             onClick={handleSubmit(onSubmit)}
             title={buttonNames.name.signUp}/>
           </form>

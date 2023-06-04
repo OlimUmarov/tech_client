@@ -6,7 +6,6 @@ import { Category, categoriesApi } from "../../api/categoriesApi";
 import { PostCard } from "../../components/posts/PostCard";
 import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../../components/posts/formatDate";
-import { PostSkeleton } from "../../components/skeletons/PostSkeleton";
 
 export const Post = () => {
   const [post, setPost] = useState<Posts>();
@@ -123,7 +122,7 @@ export const Post = () => {
             <div className="flex items-center justify-center pb-10">
               <img
                 src={`http://tech.nextlevelgroup.uz/${post?.img}`}
-                className="w-full rounded-xl hover:rounded-3xl transition-all duration-300 ease-in-out"
+                className="w-full rounded-xl object-cover hover:rounded-3xl transition-all duration-300 ease-in-out"
                 alt="bikhoriy"
               />
             </div>
