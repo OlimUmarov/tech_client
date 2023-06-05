@@ -23,7 +23,7 @@ const Login = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    dispatch(changeLoading("loading"))
+    dispatch(changeLoading(true))
     const newSchema: login = {
       email: data.email,
       password: data.password,
@@ -35,14 +35,14 @@ const Login = () => {
           dispatch(changeLogin(true));
           setItem("access_token", res.data.token);
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
-          dispatch(changeLoading("stable"))
+          dispatch(changeLoading(false))
         }
       })
       .catch((err) => {
         dispatch(
           changeAlert({ message: err.response.statusText, color: "red" })
         );
-        dispatch(changeLoading("stable"))
+        dispatch(changeLoading(false))
       });
   };
 
@@ -98,10 +98,21 @@ const Login = () => {
               </span>
             </div>
 
+            <div className="flex flex-col gap-4 text-center">
             <Button
             onClick={handleSubmit(onSubmit)}
             title={buttonNames.name.login}
+            width={true}
+            height={true}
             />
+
+            <div className="flex flex-wrap w-full justify-center">
+            <span className="text-black font-medium pr-1">Akkauntingiz yo'qmi?</span> 
+            <a href="/sign-up" className="text-blue-500 font-medium">Ro'yxatdan o'ting</a>
+            </div>
+            </div>
+
+           
           </form>
         </section>
       </div>

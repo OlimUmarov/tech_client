@@ -1,51 +1,56 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./utils/routes";
-import { getItem } from "./lib/itemStorage";
+import { getItem, getLogin, setLogin } from "./lib/itemStorage";
 import privateAxios from "./lib/privateAxios";
-import { useAppSelector, useAppDispatch } from "./app/hook";
-import { changeAlert, changeLogin } from "./features/contentSlice";
+import { useAppDispatch } from "./app/hook";
+import { changeAlert } from "./features/contentSlice";
 import { Loading } from "./components/loading/Loading";
 
 function App() {
-  const { isLogin } = useAppSelector((state) => state.contentSlice);
-  const dispatch = useAppDispatch();
   const token = getItem("access_token");
+  const dispatch = useAppDispatch()
+  const [isLogin,setIsLogin] = useState<boolean>(false)
 
   const fetchCheckToken = async () => {
     try {
       const response = await privateAxios.get("/posts/my");
       if (response.status === 200) {
-        dispatch(changeLogin(true))
-            }
+        setLogin("isLogin","true")        
+      }
     } catch (error: any) {
       dispatch(changeAlert({ message: error.response.data, color: "red" }));
     }
   };
 
-  useEffect(() => { 
-    if (token) {
+  useEffect(() => {
+    console.log(isLogin);
+    const getIsLogin = getLogin("isLogin")
+    getIsLogin? setIsLogin(true): setIsLogin(false)
+    if(token){
       fetchCheckToken();
     } else {
-      dispatch(changeLogin(false))
+      setIsLogin(false)
     }
-  }, [token,isLogin]);
+  }, [token, isLogin]);
 
-  if (isLogin)
+  if (isLogin) {
     return (
       <RouterProvider
         key={2}
         router={privateRoutes}
-        fallbackElement={<Loading/>}
+        fallbackElement={<Loading />}
       />
     );
-  return (
-    <RouterProvider
-      key={1}
-      router={publicRoutes}
-      fallbackElement={<Loading/>}
-    />
-  );
-}
+  }
+    return (
+      <RouterProvider
+        key={1}
+        router={publicRoutes}
+        fallbackElement={<Loading />}
+      />
+    );
+  }
+
 
 export default App;

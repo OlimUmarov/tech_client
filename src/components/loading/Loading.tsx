@@ -17,7 +17,7 @@ export const Loading = () => {
             <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-1"></div>
             <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
           </div>
-          <p className="text-blue-500 mt-2">Loading...</p>
+          <p className="text-blue-500 mt-2">Yuklanmoqda...</p>
         </div>
       </div>
     );

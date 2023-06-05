@@ -6,7 +6,7 @@ type InititialProps = {
         message: string,
         color: "red" | "green"
     },
-    isLoading: "loading" | "success" | "stable",
+    isLoading: boolean,
     skeleton: boolean
 }
 
@@ -16,7 +16,7 @@ const initialState: InititialProps = {
         message: "",
         color: "red"
     },
-    isLoading: "stable",
+    isLoading: false,
     skeleton: false
 }
 
@@ -30,8 +30,8 @@ const contentSlice = createSlice({
         changeAlert: (state, action: PayloadAction<{message:string,color: "red" | "green"}>) => {
             state.showAlert = action.payload;
           },
-        changeLoading: (state, action: PayloadAction<"loading" | "success" | "stable">) => {
-            state.isLoading = action.payload
+        changeLoading: (state, action: PayloadAction<boolean>) => {
+                state.isLoading = action.payload
         },
         changeSkeleteon: (state, action: PayloadAction<boolean>) => {
             state.skeleton = action.payload

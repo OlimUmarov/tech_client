@@ -10,7 +10,7 @@ import Gender from "../../components/auth/Gender";
 import authorization, { register } from "../../api/authApi";
 import { Cities, citiesApi } from "../../api/citiesApi";
 import { useAppDispatch } from "../../app/hook";
-import { changeAlert,changeLoading } from "../../features/contentSlice";
+import { changeAlert } from "../../features/contentSlice";
 import buttonNames from "../../components/buttons/buttonNames";
 import Button from "../../components/buttons/Button";
 
@@ -65,7 +65,6 @@ const SignUp = () => {
 
   // Send Form data to Server
   const onSubmit = async (data: FormData) => {    
-    dispatch(changeLoading("loading"))
     const newSchema: register = {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -83,14 +82,12 @@ const SignUp = () => {
         if (res.status === 200) {
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           navigate("/login");
-          dispatch(changeLoading("success"))
         }
       })
       .catch((err) => {
         dispatch(
           changeAlert({ message: err.response.statusText, color: "red" })
         );
-        dispatch(changeLoading("stable"))
       });
   };
 
@@ -291,10 +288,19 @@ const SignUp = () => {
               </span>
             </div>
             
-            {/* <button type="submit">sadas</button> */}
-            <Button 
+            <div className="flex flex-col gap-4 text-center">
+            <Button
             onClick={handleSubmit(onSubmit)}
-            title={buttonNames.name.signUp}/>
+            title={buttonNames.name.signUp}
+            width={true}
+            height={true}
+            />
+
+            <div className="flex flex-wrap w-full justify-center">
+            <span className="text-black font-medium pr-1">Akkauntingiz bormi?</span> 
+            <a href="/login" className="text-blue-500 font-medium">Kirish</a>
+            </div>
+            </div>
           </form>
         </section>
       </div>

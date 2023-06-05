@@ -41,6 +41,7 @@ export const MyPosts = () => {
       likes: post.likes,
       shortcontent: post.shortcontent,
       title: post.title,
+      name: post.name,
       user_id: post.user_id,
     };
   

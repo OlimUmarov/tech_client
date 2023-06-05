@@ -30,7 +30,8 @@ const Gender = ({setGender}: Props) => {
     const genders = data.map(({ label, value }) => (
         <Tab key={value} value={value} 
             onClick={() => handleClick(value)}
-            className={`flex justify-center items-center bg-[#F5F7F9] text-sm border-2 border-[#F5F7F9] rounded-lg ${activeTab === value ? "border-2 border-[#01A0DA]" : ""}`}>
+            className={`flex z-50 justify-center items-center text-sm border-2 border-[#F5F7F9] rounded-lg ${activeTab === value ? "border-2 border-[#01A0DA]" : ""}`}
+            >
             {label}
         </Tab>
     ))
@@ -38,7 +39,7 @@ const Gender = ({setGender}: Props) => {
     return (
 
         <Tabs value="activeTab">
-            <TabsHeader className="gender w-full  h-12 relative cursor-pointer">
+            <TabsHeader className="gender z-50 w-full  h-12 relative cursor-pointer">
                 {genders}
             </TabsHeader>
         </Tabs>

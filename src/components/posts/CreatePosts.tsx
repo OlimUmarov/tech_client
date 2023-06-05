@@ -53,12 +53,12 @@ export const CreatePosts = () => {
   };
 
   const sendPost = async () => {
-    dispatch(changeLoading("loading"));
+    dispatch(changeLoading(true));
     if (!file){
       dispatch(
         changeAlert({ message: "Xatolik yuz berdi!", color: "red" })
       );
-      dispatch(changeLoading("stable"));
+      dispatch(changeLoading(false));
     }
 
     const formData = new FormData();
@@ -78,14 +78,14 @@ export const CreatePosts = () => {
           setCat_id("");
           setShortContent("");
           setFile(null);
-          dispatch(changeLoading("success"));
+          dispatch(changeLoading(false));
         }
       })
       .catch((err) => {
         dispatch(
           changeAlert({ message: err.response.statusText, color: "red" })
         );
-        dispatch(changeLoading("stable"));
+        dispatch(changeLoading(false));
       });
   };
 
@@ -192,7 +192,7 @@ export const CreatePosts = () => {
        {previewUrl && <img src={previewUrl} alt="Selected" className="w-[300px] h-[300px] object-cover"/>  }     
         <input type="file" onChange={handleSelectFile} />
       </div>
-        <Button title="Yuborish" onClick={sendPost} />
+        <Button title="Yuborish" onClick={sendPost} active={true} />
     </div>
   );
 };

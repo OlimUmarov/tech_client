@@ -7,7 +7,7 @@ import {
 import navbarLinks from "./navbarLinks";
 import { ReactNode, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { GrFormClose } from 'react-icons/gr'
+import { GrFormClose } from "react-icons/gr";
 import { UserAccount } from "../buttons/UserAccount";
 
 const PrivateNavbar = () => {
@@ -41,11 +41,9 @@ const PrivateNavbar = () => {
     const currentPath = location.pathname === navbar.link;
 
     return (
-      <NavLink to={navbar.link} key={navbar.link}
-      onClick={handleMenuToggle}
-      >
+      <NavLink to={navbar.link} key={navbar.link} onClick={handleMenuToggle}>
         <span
-          className={` pr-4  pl-3 py-2 text-gray-500 text-base border-b border-gray-100 hover:text-blue-500 lg:hover:bg-transparent ${
+          className={` pr-4  pl-  text-gray-500 text-base max-lg:text-xl hover:text-blue-500 lg:hover:bg-transparent ${
             currentPath ? "text-blue-500" : ""
           }
         lg:border-0 lg:hover:text-primary-500 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`}
@@ -58,10 +56,10 @@ const PrivateNavbar = () => {
 
   return (
     <div>
-      <header className="bg-white border-b border-gray-200 ">
+      <header className={`bg-white border-b border-gray-200`}>
         <nav className="py-3  dark:bg-gray-800">
           <div className="flex flex-wrap justify-between items-center mx-auto contain">
-            <div className="flex flex-wrap justify-center items-center gap-10">
+            <div className="flex flex-wrap justify-center items-center gap-5">
               <NavLink to="/" className="flex items-center">
                 <img
                   src="https://flowbite.com/docs/images/logo.svg"
@@ -81,44 +79,46 @@ const PrivateNavbar = () => {
                   {navbars}
                 </ul>
               </div>
-
-            
             </div>
 
-            <div className="relative ">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none transition duration-150 ease-in-out">
-                <svg
-                  aria-hidden="true"
-                  className={`w-5 h-5 text-gray-500 dark:text-gray-400 trans ${
-                    isFocused ? "scale-110	 rotate-90" : ""
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <IoIosSearch size={20} />
-                </svg>
+            <section className="flex justify-center items-center gap-5">
+              <div className="flex flex-wrap gap-2 max-sm:hidden">
+                <div className="relative ">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none transition duration-150 ease-in-out">
+                    <svg
+                      aria-hidden="true"
+                      className={`w-5 h-5 text-gray-500 dark:text-gray-400 trans ${
+                        isFocused ? "scale-110	 rotate-90" : ""
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <IoIosSearch size={20} />
+                    </svg>
+                  </div>
+                  <input
+                    type="search"
+                    id="default-search"
+                    className="block max-sm:w-40  transition-all duration-300 ease  p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
+                    placeholder="Izlash..."
+                    required
+                    value={searchQuery}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                  />
+                </div>
+
+                <div className="relative flex items-center lg:order-2">
+                  <div>
+                    <UserAccount />
+                  </div>
+                </div>
               </div>
-              <input
-                type="search"
-                id="default-search"
-                className="block w-64 max-sm:w-40  transition-all duration-300 ease  p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
-                placeholder="Izlash..."
-                required
-                value={searchQuery}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-              />
-            </div>
 
-            <div className="relative flex items-center lg:order-2">
-              <div>
-                <UserAccount />
-              </div>
-            </div>
               {/* Burger Menu */}
               <div className="lg:hidden">
                 <button
@@ -147,20 +147,61 @@ const PrivateNavbar = () => {
                   </svg>
                 </button>
                 {isMenuOpen && (
-      
-                  <div className="absolute top-0 right-0 w-1/2  h-screen bg-white dark:bg-gray-800 z-50">
-                    <ul className="flex flex-col items-start pl-4 justify-center py-16">
-                      {navbars}
-                    </ul>
-                    <span 
-                    onClick={handleMenuToggle}
-                    className="absolute top-6 right-4">
-                    <GrFormClose size={25}/>
-                    </span>
+                  <div className="absolute top-0 right-0 w-screen h-screen  dark:bg-gray-800 z-50">
+                    <div className="bg-black opacity-50 absolute top-0 left-0 max-md:w-1/3 w-1/2 h-screen max-sm:1/3"></div>
+                    <div className="w-1/2 max-sm:w-full max-md:w-2/3 h-screen bg-white absolute top-0 right-0">
+
+                      <section className="flex flex-wrap sm:hidden gap-2 pt-20 px-6">
+                        <div className="relative ">
+                          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none transition duration-150 ease-in-out">
+                            <svg
+                              aria-hidden="true"
+                              className={`w-5 h-5 text-gray-500 dark:text-gray-400 trans ${
+                                isFocused ? "scale-110	 rotate-90" : ""
+                              }`}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <IoIosSearch size={20} />
+                            </svg>
+                          </div>
+                          <input
+                            type="search"
+                            id="default-search"
+                            className="block transition-all duration-300 ease  p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
+                            placeholder="Izlash..."
+                            required
+                            value={searchQuery}
+                            onChange={handleInputChange}
+                            onKeyPress={handleKeyPress}
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)}
+                          />
+                        </div>
+
+                        <div className="relative flex items-center lg:order-2">
+                          <div>
+                            <UserAccount />
+                          </div>
+                        </div>
+                      </section>
+
+                      <ul className="flex flex-col items-start pl-6 justify-center py-10">
+                        {navbars}
+                      </ul>
+                      <span
+                        onClick={handleMenuToggle}
+                        className="absolute top-6 right-4 max-sm:right-10"
+                      >
+                        <GrFormClose size={25} />
+                      </span>
+                    </div>
                   </div>
-                
                 )}
               </div>
+            </section>
           </div>
         </nav>
       </header>

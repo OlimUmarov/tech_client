@@ -5,6 +5,7 @@ export interface Posts {
       name: string,
       parent_id: string | null
     },
+    category_id?: string | number
     content: string,
     id: number,
     img: string,
@@ -22,5 +23,10 @@ export interface Posts {
     id: number,
     name: string,
     parent_id: string | null
+  }
+
+  export type likesListType = {
+    post_id: number | string,
+    liked: boolean
   }
 

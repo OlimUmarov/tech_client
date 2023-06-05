@@ -1,7 +1,6 @@
 import { Posts } from "../../types/posts";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "./formatDate";
-import { setCookies } from "../../lib/itemStorage";
 import { MdVisibility } from "react-icons/md";
 
 export const PostCard = (props: Posts) => {
@@ -17,7 +16,6 @@ export const PostCard = (props: Posts) => {
       onClick={() => {
         navigate(`/post`);
         console.log(props.id);
-        setCookies("postId", props.id.toString());
       }}
     >
       <section className="w-72 h-48">

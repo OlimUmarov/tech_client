@@ -60,9 +60,9 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
   };
 
   const sendPost = async () => {
+    dispatch(changeLoading(true))
     if (!convertedImage){
       dispatch(changeAlert({ message: "Xatolik yuz berdi!", color: "red" }));
-      dispatch(changeLoading("stable"));
       }
     const formData = new FormData();
     formData.append("title", title);
@@ -77,8 +77,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
     for (const pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
-    dispatch(changeLoading("loading"))
-      
+
     await postsApi
       .putPost(post.id,formData)
       .then((res) => {
@@ -90,12 +89,12 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
           setShortContent("");
           setSelectedFile(null);
           setReload(true)
-          dispatch(changeLoading("success"));
+          dispatch(changeLoading(false));
         }
       })
       .catch((err) => {
       dispatch(changeAlert({ message: err.response.statusText, color: "red" }));
-      dispatch(changeLoading("stable"));
+      dispatch(changeLoading(false));
       });
   };
 
@@ -246,7 +245,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
       </div>
 
       <div className="pt-10">
-      <Button title="Yuborish" onClick={sendPost} />
+      <Button title="Yuborish" onClick={sendPost} active={true}/>
       </div>
     </div>
   );

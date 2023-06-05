@@ -1,70 +1,44 @@
 import { useEffect, useState } from "react";
-import { postsApi } from "../../api/postsApi";
 import { ArticleCard } from "../../components/posts/ArticleCard";
-import { Posts, catListType } from "../../types/posts";
+import { Posts } from "../../types/posts";
 import { Link, useParams } from "react-router-dom";
 import { changeAlert, changeSkeleteon } from "../../features/contentSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { ArticleCardSkeleton } from "../../components/skeletons/ArticleCardSkeleton";
 import { categoriesApi } from "../../api/categoriesApi";
+import BasicPagination from "../../components/pagination/Pagination";
 
 function Categories() {
   const [catPosts, setCatPosts] = useState<Array<Posts>>([]);
-  const [catList, setCatList] = useState<Array<catListType>>([]);
+  const [catList, setCatList] = useState<Array<Posts>>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(1);
-  // const [fetching, setFetching] = useState<boolean>(true);
   const { skeleton } = useAppSelector((state) => state.contentSlice);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const getPosts = async (cat_id: string | undefined) => {
-    const count: number = Math.ceil(totalCount);
-
-    // if (fetching && currentPage <= count) {
-      dispatch(changeSkeleteon(true));
-      await postsApi
-        .allPosts(currentPage)
-        .then((res) => {
-          if (res.status === 200) {
-            const data = res.data.results;
-            let filteredPost;
-            if (cat_id) {
-              filteredPost = data.filter((post) => post.category == id);
-              setCatPosts(filteredPost);
-              setCurrentPage((prev) => prev + 1);
-              setTotalCount(filteredPost.length);
-            } else {
-              filteredPost = data.filter(
-                (post) => post.category == data[0].category
-              );
-              setCatPosts(filteredPost);
-              setCurrentPage((prev) => prev + 1);
-              setTotalCount(res.data.totalCount);
-            }
-          }
-        })
-        .catch((err) => {
-          dispatch(
-            changeAlert({ message: err.response.statusText, color: "red" })
-          );
-        })
-        .finally(() => {
-          // setFetching(false);
-          dispatch(changeSkeleteon(false));
-        });
-    }
-  // };
-
-  // const scrollHandler = (e) => {
-  //   if (
-  //     e.target.documentElement.scrollHeight -
-  //       (e.target.documentElement.scrollTop + window.innerHeight) <
-  //     100
-  //   ) {
-  //     setFetching(true);
-  //   }
-  // };
+  const getPosts = async (cat_id: string | number) => {
+    dispatch(changeSkeleteon(true));
+    if (catList[0] === undefined) return new Error("Cat List is empty");
+    const default_cat_id = catList[0].id
+    await categoriesApi
+      .getPostsByCategory(currentPage, cat_id? cat_id : default_cat_id)
+      .then((res) => {
+        if (res.status === 200) {
+          setCatPosts(res.data.results);
+          setTotalCount(Math.ceil(res.data.totalCount / 10));
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          changeAlert({ message: err.response.statusText, color: "red" })
+        );
+      })
+      .finally(() => {
+        dispatch(changeSkeleteon(false));
+      });
+    // }
+  };
 
   const getCategories = async () => {
     await categoriesApi
@@ -80,6 +54,11 @@ function Categories() {
           changeAlert({ message: err.response.statusText, color: "red" })
         );
       });
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    getPosts(page);
   };
 
   const showCatPosts: JSX.Element[] = catPosts.map((post) => {
@@ -116,25 +95,27 @@ function Categories() {
   });
 
   useEffect(() => {
-    getPosts(id);
     getCategories();
-    // document.addEventListener("scroll", scrollHandler);
-    // return function () {
-    //   document.removeEventListener("scroll", scrollHandler);
-    // };
-  }, [id]);
+    console.log(catList);
+    getPosts()
+  }, []);
 
   return (
     <div className="bg-slate-50 ">
       <div className="flex flex-wrap gap-2 contain pt-4">{categories}</div>
 
-      {catPosts.length ? (
-        <div className="grid grid-cols-2 max-md:grid-cols-1 gap-8 pt-8 pb-8 contain">
-          {showCatPosts}
-        </div>
-      ) : (
-        <div className="pt-10">{skeleton && <ArticleCardSkeleton />}</div>
-      )}
+      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-8 pt-8 pb-8 contain">
+        {!skeleton && showCatPosts}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+      </div>
+
       {!catPosts.length && !skeleton && (
         <div className="contain flex flex-col justify-center items-center pt-20">
           <div>
@@ -149,9 +130,17 @@ function Categories() {
           </div>
         </div>
       )}
+      {catPosts.length && (
+        <div className="w-full flex justify-center items-center">
+          <BasicPagination
+            totalCount={totalCount}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
+      )}
     </div>
   );
 }
-
 
 export default Categories;
