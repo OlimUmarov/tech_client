@@ -49,13 +49,19 @@ export const publicRoutes = createBrowserRouter([
         {
           path: '/post',
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
-          element: <PublicLayout><Post /></PublicLayout>,
+          element: <Navigate to='/login' replace  />,
           children: [
           {
-            path: "post/:id"
+            path: "/post/:id",
+            element: <Navigate to='/login' replace  />,
           }
           ]
         },
+        {
+          path: '/search',
+          element: <Navigate to='/login' replace  />,
+          errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
+        }, 
         {
           path: '/sign-up',
           index: true,
@@ -68,6 +74,7 @@ export const publicRoutes = createBrowserRouter([
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><Login /></PublicLayout>
         },
+
     
         {
           path: '*',

@@ -4,7 +4,7 @@ import {  useAppDispatch } from "../../app/hook";
 import { NavLink } from "react-router-dom";
 import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
-import { removeItem } from "../../lib/itemStorage";
+import { deleteCatId, deleteLike, removeItem, removeLogin, setLogin } from "../../lib/itemStorage";
 import { changeLogin } from "../../features/contentSlice";
 
 export const UserAccount = () => {
@@ -18,7 +18,10 @@ export const UserAccount = () => {
   const handleLogout = () => {
     handleMenu();
     removeItem("access_token");
+    deleteCatId("catId")
+    deleteLike("like")
     dispatch(changeLogin(false))
+    setLogin("isLogin","false")
     };
 
 

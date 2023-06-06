@@ -4,15 +4,18 @@ import { postsApi } from "../../api/postsApi";
 import { ArticleCard } from "../../components/posts/ArticleCard";
 import { Posts } from "../../types/posts";
 import { CardToggleMenu } from "../../components/buttons/CardToggleMenu";
-import { changeAlert } from "../../features/contentSlice";
+import { changeAlert,changeSkeleteon } from "../../features/contentSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { ArticleCardSkeleton } from "../../components/skeletons/ArticleCardSkeleton";
 
 export const MyPosts = () => {
   const [postList, setPostList] = useState<Array<Posts>>([]);
   const dispatch = useAppDispatch();
+  const { skeleton } = useAppSelector((state) => state.contentSlice);
   const { showAlert } = useAppSelector((state) => state.contentSlice);
 
   const getMyPost = async () => {
+    dispatch(changeSkeleteon(true));
     await postsApi
       .getMyPosts()
       .then((res) => {
@@ -21,12 +24,13 @@ export const MyPosts = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        
+        dispatch(changeSkeleteon(false));
         dispatch(
           changeAlert({ message: err.response.statusText, color: "green" })
         );
-      });
+      }).finally(()=> {
+        dispatch(changeSkeleteon(false));
+      })
   };
 
 
@@ -64,11 +68,18 @@ export const MyPosts = () => {
 
   return (
     <div className="bg-slate-50 ">
-      {postList.length ? (
         <div className="grid grid-cols-2 max-lg:grid-cols-2 gap-8 pt-8 pb-8 contain">
-          {posts}
+          {!skeleton && posts}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
         </div>
-      ) : (
+        {!postList.length && (
         <div>Not added yet</div>
       )}
     </div>

@@ -13,6 +13,7 @@ function Categories() {
   const [catList, setCatList] = useState<Array<Posts>>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(1);
+  const [reload,setReload] = useState<boolean>(false)
   const { skeleton } = useAppSelector((state) => state.contentSlice);
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -20,9 +21,11 @@ function Categories() {
   const getPosts = async (cat_id: string | number) => {
     dispatch(changeSkeleteon(true));
     if (catList[0] === undefined) return new Error("Cat List is empty");
+    console.log(catList[0].id);
+    
     const default_cat_id = catList[0].id
     await categoriesApi
-      .getPostsByCategory(currentPage, cat_id? cat_id : default_cat_id)
+      .getPostsByCategory(currentPage, cat_id === undefined? default_cat_id : cat_id  )
       .then((res) => {
         if (res.status === 200) {
           setCatPosts(res.data.results);
@@ -44,12 +47,14 @@ function Categories() {
     await categoriesApi
       .getCategories()
       .then((res) => {
+        setReload(true)
         if (res.status === 200) {
           const data = res.data.results;
           setCatList(data);
         }
       })
       .catch((err) => {
+        setReload(false)
         dispatch(
           changeAlert({ message: err.response.statusText, color: "red" })
         );
@@ -96,9 +101,8 @@ function Categories() {
 
   useEffect(() => {
     getCategories();
-    console.log(catList);
-    getPosts()
-  }, []);
+    getPosts(id)
+  }, [id,reload]);
 
   return (
     <div className="bg-slate-50 ">

@@ -14,10 +14,6 @@ const PublicNavbar = () => {
   const [searchParams] = useSearchParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
@@ -26,6 +22,10 @@ const PublicNavbar = () => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   useEffect(() => {
@@ -97,9 +97,12 @@ const PublicNavbar = () => {
                   <input
                     type="search"
                     id="default-search"
-                    className="block p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
+                    className="block max-sm:w-40  transition-all duration-300 ease  p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
                     placeholder="Izlash..."
                     required
+                    value={searchQuery}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                   />

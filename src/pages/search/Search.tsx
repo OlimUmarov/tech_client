@@ -41,9 +41,15 @@ export const Search = () => {
     }
   };
 
-  const filterPosts =  () => {
-    const posts = searchResults.filter((post:{ title: string | null })=> post.title && post.title.toLocaleLowerCase().includes(searchParams.get('query')?.toLocaleLowerCase() || ""))
-    setFilteredPosts(posts)
+  const filterPosts = () => {
+    const posts = searchResults.filter(
+      (post: { title: string | null }) =>
+        post.title &&
+        post.title
+          .toLocaleLowerCase()
+          .includes(searchParams.get("query")?.toLocaleLowerCase() || "")
+    );
+    setFilteredPosts(posts);
   };
 
   const posts: JSX.Element[] = filteredPosts.map((post) => {
@@ -69,21 +75,24 @@ export const Search = () => {
 
   useEffect(() => {
     console.log("render");
-    
+
     getAllPost();
-    filterPosts()
-  }, [currentPage,searchParams,searchResults]);
-
-
+    filterPosts();
+  }, [currentPage, searchParams, searchResults]);
 
   return (
     <div className="bg-slate-50 ">
       <div className="grid grid-cols-2 max-lg:grid-cols-1 max-sm:grid-cols-1 gap-8 pt-8 pb-8 contain">
-        {posts}
+        {!skeleton && posts}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
+        {skeleton && <ArticleCardSkeleton />}
       </div>
-      {skeleton && currentPage <= Math.ceil(totalCount) && (
-        <ArticleCardSkeleton />
-      )}
     </div>
   );
 };

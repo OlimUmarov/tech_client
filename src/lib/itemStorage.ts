@@ -54,6 +54,14 @@ export const getLike = (key: "like") => {
     }
 } 
 
+export const deleteLike = (key: "like") => {
+    try {
+        Cookies.remove(key);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const setCatId =  (key: "catId",data:string) => {
     try{
         Cookies.set(key, data);
@@ -66,6 +74,15 @@ export const setCatId =  (key: "catId",data:string) => {
 export const getCatId = (key: "catId") => {
     try{
         return Cookies.get(key);
+    }catch (error) {
+        console.log(error)
+    }
+} 
+
+export const deleteCatId =  (key: "catId") => {
+    try{
+        Cookies.remove(key);
+        
     }catch (error) {
         console.log(error)
     }
@@ -87,3 +104,12 @@ export const getLogin = (key: "isLogin") => {
         console.log(error)
     }
 } 
+
+export const removeLogin =  (key: "isLogin") => {
+    try{
+        Cookies.remove(key);
+        
+    }catch (error) {
+        console.log(error)
+    }
+}
