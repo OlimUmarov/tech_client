@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function BasicPagination({ totalCount, onPageChange, currentPage }: Props) {
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
     onPageChange(page);
   };
 

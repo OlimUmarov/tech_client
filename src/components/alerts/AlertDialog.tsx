@@ -19,7 +19,7 @@ export const AlertDialog: React.FC<Props> = ({toggled,post_id,handleDialog,title
   const dispatch = useAppDispatch();
 
   const deletePost = async () => {
-    console.log("delet" +  post_id)
+    if(post_id === undefined) throw new Error("post_id is undefuned")
     await postsApi
       .delMyPost(post_id)
       .then((res) => {

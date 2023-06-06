@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
 import buttonNames from "../../components/buttons/buttonNames";
 import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
@@ -14,7 +13,6 @@ type FormData = yup.InferType<typeof schemaLogin>;
 
 const Login = () => {
   const dispatch = useAppDispatch();
-const navigate = useNavigate()
 const {isLogin} = useAppSelector((state)=> state.contentSlice)
   const {
     register,

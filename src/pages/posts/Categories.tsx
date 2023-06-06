@@ -10,23 +10,21 @@ import { categoriesApi } from "../../api/categoriesApi";
 function Categories() {
   const [catPosts, setCatPosts] = useState<Array<Posts>>([]);
   const [catList, setCatList] = useState<Array<Posts>>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalCount, setTotalCount] = useState<number>(1);
+  const currentPage = 1
   const [reload,setReload] = useState<boolean>(false)
   const { skeleton } = useAppSelector((state) => state.contentSlice);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const getPosts = async (cat_id: string | number) => {
+  const getPosts = async () => {
     dispatch(changeSkeleteon(true));
     const def_cat_id = catList[0].id
     if (catList[0] === undefined) return new Error("Cat List is empty");   
     await categoriesApi
-      .getPostsByCategory(currentPage, cat_id === undefined ? def_cat_id : cat_id)
+      .getPostsByCategory(currentPage, id === undefined ? def_cat_id : id)
       .then((res) => {
         if (res.status === 200) {
           setCatPosts(res.data.results);
-          setTotalCount(Math.ceil(res.data.totalCount / 10));
         }
       })
       .catch((err) => {
@@ -93,7 +91,7 @@ function Categories() {
 
   useEffect(() => {
     getCategories();
-    getPosts(id)
+    getPosts()
   }, [id,reload]);
 
   return (

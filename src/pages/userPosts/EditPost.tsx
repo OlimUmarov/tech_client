@@ -9,7 +9,7 @@ import { Loading } from "../../components/loading/Loading";
 export const EditPost = () => {
   const { id } = useParams();
   const { isLoading } = useAppSelector((state) => state.contentSlice);
-  const [post, setPost] = useState<Post>({});
+  const [post, setPost] = useState<Post>();
   const dispatch = useAppDispatch();
 
   const getMyPostData = async () => {
@@ -18,7 +18,7 @@ export const EditPost = () => {
     const post_id = parseInt(id);
     await postsApi.getMyPost(post_id).then((res) => {
       if (res.status === 200) {
-        const result:Post = {
+        const result = {
           title: res.data.data.title,
           shortcontent: res.data.data.shortcontent,
           content: res.data.data.content,

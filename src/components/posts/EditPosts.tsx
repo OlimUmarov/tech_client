@@ -30,11 +30,11 @@ const quillFormats = [
   "image",
 ];
 
-interface Props {
-  post: Post;
+type  Props =  {
+  post: Post | undefined ;
 }
 
-export const EditPosts: React.FC<Props> = ({ post }) => {
+export const EditPosts = ({ post }:Props) => {
   const [categoryList, setCategoryList] = useState<Array<Category>>([]);
   const [title, setTitle] = useState<string>("");
   const [shortContent, setShortContent] = useState<string>("");
@@ -77,7 +77,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
     for (const pair of formData.entries()) {
       console.log(pair[0], pair[1]);
     }
-
+    if(post === undefined) throw new Error("")
     await postsApi
       .putPost(post.id,formData)
       .then((res) => {
@@ -134,7 +134,7 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
   };
 
   async function loadImage() {
-    if (!post.img) return new Error("Image error!");
+    if (!post?.img) return new Error("Image error!");
     const image = await imageUrlToFile(
       `http://tech.nextlevelgroup.uz/${post.img}`,
       "image"
@@ -231,9 +231,9 @@ export const EditPosts: React.FC<Props> = ({ post }) => {
       <div className="pt-10 flex flex-col justify-center items-start gap-4">
         {previewUrl ? (
           <img src={previewUrl} alt="Selected" className="w-[300px] h-[300px] object-cover" />
-        ) : post.img ? (
+        ) : post?.img ? (
           <img
-            src={`http://tech.nextlevelgroup.uz/${post.img}`}
+            src={`http://tech.nextlevelgroup.uz/${post?.img}`}
             className="border-0 rounded-md"
           />
         ) : ''}

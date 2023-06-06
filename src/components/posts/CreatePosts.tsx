@@ -1,10 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { changeAlert, changeLoading } from "../../features/contentSlice";
 import { useAppDispatch } from "../../app/hook";
 import { postsApi } from "../../api/postsApi";
-import { Category, categoriesApi } from "../../api/categoriesApi";
 import Button from "../buttons/Button";
 import { catListType } from "../../types/posts";
 
@@ -34,6 +33,11 @@ type Props = {
   categoryList: Array<catListType>
 }
 
+type categoryType = {
+  id: number,
+  name: string
+}
+
 export const CreatePosts = ({categoryList}:Props) => {
   const [title, setTitle] = useState<string>("");
   const [shortContent, setShortContent] = useState<string>("");
@@ -52,7 +56,7 @@ export const CreatePosts = ({categoryList}:Props) => {
       );
       dispatch(changeLoading(false));
     }
-
+    if(file === null) throw new Error("file is null")
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", editorContent);
@@ -95,12 +99,12 @@ export const CreatePosts = ({categoryList}:Props) => {
     }
   };
 
-  const handleCategoryChange = (event) => {
+  const handleCategoryChange = (event: { target: { value: any; }; }) => {
     const selectedValue = event.target.value;
     setCat_id(selectedValue);
   };
 
-  const categories = categoryList.map((category: Category) => {
+  const categories = categoryList.map((category:categoryType) => {
     return (
       <option key={category.id} value={category.id}>
         {category.name}

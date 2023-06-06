@@ -2,7 +2,6 @@ import { Posts } from "../../types/posts";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "./formatDate";
 import { MdVisibility } from "react-icons/md";
-import { useEffect, useRef } from "react";
 
 export const PostCard = (props: Posts) => {
   const navigate = useNavigate();

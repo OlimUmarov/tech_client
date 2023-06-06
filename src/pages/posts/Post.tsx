@@ -24,35 +24,35 @@ export const Post = () => {
 
   const getPost = async () => {
     dispatch(changeLoading(true));
-    try {
-      const response: AxiosResponse<any> = await postsApi.getPost(id);
-      const result: Posts = {
-        actived_at: response.data.actived_at,
-        category: {
-          id: response.data.category.id,
-          name: response.data.category.name,
-          parent_id: response.data.category.parent_id,
-        },
-        content: response.data.content,
-        id: response.data.id,
-        img: response.data.img,
-        likes: response.data.likes,
-        shortcontent: response.data.shortcontent,
-        title: response.data.title,
-        views: response.data.views,
-        user_id: response.data.user_id,
-      };
-
-      setPost({ ...result });
-      dispatch(changeLoading(false));
-    } catch (error: any) {
-      dispatch(changeLoading(false));
-      dispatch(
-        changeAlert({ message: "Post bilan xatolik yuz berdi", color: "red" })
-      );
-    } finally {
-      dispatch(changeLoading(false));
-    }
+    if(id === undefined) throw new Error("id is undefined!")
+      await postsApi.getPost(parseInt(id)).then((res)=>{
+        const result: Posts = {
+          actived_at: res.data.actived_at,
+          category: {
+            id: res.data.category.id,
+            name: res.data.category.name,
+            parent_id: res.data.category.parent_id,
+          },
+          content: res.data.content,
+          id: res.data.id,
+          img: res.data.img,
+          likes: res.data.likes,
+          shortcontent: res.data.shortcontent,
+          title: res.data.title,
+          views: res.data.views,
+          user_id: res.data.user_id,
+        };
+  
+        setPost({ ...result });
+        dispatch(changeLoading(false));
+      }).catch (() => {
+        dispatch(changeLoading(false));
+        dispatch(
+          changeAlert({ message: "Post bilan xatolik yuz berdi", color: "red" })
+        );
+      }).finally(()=>{
+        dispatch(changeLoading(false));
+      }) 
   };
 
   const getCategories = async () => {
@@ -82,7 +82,7 @@ export const Post = () => {
     if (!isActive) {
       await postsApi
         .postLike(id)
-        .then((res) => {
+        .then(() => {
           getPost();
         })
         .catch(() => {

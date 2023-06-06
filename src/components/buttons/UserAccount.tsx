@@ -4,7 +4,7 @@ import {  useAppDispatch, useAppSelector } from "../../app/hook";
 import { NavLink } from "react-router-dom";
 import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
-import { deleteCatId, deleteLike, removeItem, removeLogin, setLogin } from "../../lib/itemStorage";
+import { deleteCatId, deleteLike, removeItem, setLogin } from "../../lib/itemStorage";
 import { changeLogin } from "../../features/contentSlice";
 
 export const UserAccount = () => {

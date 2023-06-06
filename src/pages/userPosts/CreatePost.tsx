@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { CreatePosts } from "../../components/posts/CreatePosts"
 import { changeAlert, changeLoading } from "../../features/contentSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { Category, categoriesApi } from "../../api/categoriesApi";
+import { categoriesApi } from "../../api/categoriesApi";
 import { Loading } from "../../components/loading/Loading";
+import { catListType } from "../../types/posts";
 
 export const CreatePost = () => {
-  const [categoryList, setCategoryList] = useState<Array<Category>>([]);
+  const [categoryList, setCategoryList] = useState<Array<catListType>>([]);
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.contentSlice);
 

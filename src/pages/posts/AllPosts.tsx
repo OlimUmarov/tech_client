@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import {
   changeAlert,
   changeSkeleteon,
-  changeLoading,
 } from "../../features/contentSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { ArticleCardSkeleton } from "../../components/skeletons/ArticleCardSkeleton";

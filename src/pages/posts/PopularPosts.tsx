@@ -10,7 +10,7 @@ import BasicPagination from "../../components/pagination/Pagination";
 
 function PopularPosts() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
-  const [orderBy, setOrderBy] = useState<orderByType>("views");
+  const orderBy:orderByType = "views"
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(1);
   const dispatch = useAppDispatch();

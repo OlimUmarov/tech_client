@@ -10,7 +10,7 @@ import BasicPagination from "../../components/pagination/Pagination";
 
 function NewPosts() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
-  const [orderBy, setOrderBy] = useState<orderByType>('created_at')
+  const orderBy:orderByType = "created_at"
   const { skeleton } = useAppSelector((state) => state.contentSlice);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(1);

@@ -1,4 +1,4 @@
-import { useState, useEffect, InputHTMLAttributes } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -64,7 +64,7 @@ const SignUp = () => {
   };
 
   // Send Form data to Server
-  const onSubmit = async (data: FormData) => {    
+  const onSubmit = async (data: FormData) => {
     const newSchema: register = {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -81,7 +81,7 @@ const SignUp = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(newSchema);
-          
+
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           navigate("/login");
         }
@@ -190,6 +190,7 @@ const SignUp = () => {
                 <label className="label">Telefon raqami</label>
 
                 <InputMask
+                  // eslint-disable-next-line no-nonoctal-decimal-escape
                   mask="+\9\98(99) 999-99-99"
                   maskChar="_"
                   placeholder="+998(__) ___-__-__ "
@@ -200,12 +201,8 @@ const SignUp = () => {
                   className={`input border border-white pl-4 ${
                     errors.password?.message && "border-red-300"
                   }`}
-                >
-                  {(
-                    inputProps: React.InputHTMLAttributes<HTMLInputElement>
-                  ) => <input {...inputProps} />}
-                </InputMask>
-
+                />
+                
                 {errors.phone && (
                   <p className="text-red-500 text-xs ">
                     {errors.phone.message}
@@ -289,19 +286,23 @@ const SignUp = () => {
                 )}
               </span>
             </div>
-            
-            <div className="flex flex-col gap-4 text-center">
-            <Button
-            onClick={handleSubmit(onSubmit)}
-            title={buttonNames.name.signUp}
-            width={true}
-            height={true}
-            />
 
-            <div className="flex flex-wrap w-full justify-center">
-            <span className="text-black font-medium pr-1">Akkauntingiz bormi?</span> 
-            <a href="/login" className="text-blue-500 font-medium">Kirish</a>
-            </div>
+            <div className="flex flex-col gap-4 text-center">
+              <Button
+                onClick={handleSubmit(onSubmit)}
+                title={buttonNames.name.signUp}
+                width={true}
+                height={true}
+              />
+
+              <div className="flex flex-wrap w-full justify-center">
+                <span className="text-black font-medium pr-1">
+                  Akkauntingiz bormi?
+                </span>
+                <a href="/login" className="text-blue-500 font-medium">
+                  Kirish
+                </a>
+              </div>
             </div>
           </form>
         </section>

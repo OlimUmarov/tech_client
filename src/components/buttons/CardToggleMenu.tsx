@@ -1,5 +1,5 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useEffect, useState, useRef, MouseEvent } from "react";
+import { useEffect, useState, useRef } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -19,7 +19,7 @@ export const CardToggleMenu = ({ post_id }: { post_id: number }) => {
   }
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside: EventListenerOrEventListenerObject = (event) => {
       if (
         elementRef.current &&
         !elementRef.current.contains(event.target as Node)

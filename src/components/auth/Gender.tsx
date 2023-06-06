@@ -27,14 +27,14 @@ const Gender = ({ setGender }: Props) => {
     <div
       key={value}
       onClick={() => handleClick(value)}
-      className={`flex justify-center w-full  items-center border-2 border-slate-100 text-sm rounded-lg ${activeTab === value ? "border-2 border-blue-500" : ""}`}
+      className={`flex justify-center w-full  items-center border-2 text-sm rounded-lg ${activeTab === value ? "border-2 border-blue-500 " : ""}`}
     >
       {label}
     </div>
   ));
 
   return (
-    <div className="gender w-full relative cursor-pointer flex rounded-md ">
+    <div className="gender w-full relative cursor-pointer  flex rounded-md ">
       {genders}
     </div>
   );
