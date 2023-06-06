@@ -89,11 +89,11 @@ export const publicRoutes = createBrowserRouter([
       errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
       element: <PrivateLayout> <AllPosts /> </PrivateLayout>,
       index: true,
-    },
+    }, 
     {
       path: '/login',
       errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-      element: <Navigate to="/all-posts" replace/>,
+      element: <PrivateLayout><Navigate to="/all-posts" replace/></PrivateLayout>,
       index: true,
     },
         {

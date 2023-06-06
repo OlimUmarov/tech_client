@@ -40,7 +40,6 @@ const {isLogin} = useAppSelector((state)=> state.contentSlice)
           setItem("access_token", res.data.token);
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           dispatch(changeLoading(false))
-          navigate("/")
         }
       })
       .catch((err) => {
@@ -48,12 +47,8 @@ const {isLogin} = useAppSelector((state)=> state.contentSlice)
           changeAlert({ message: err.response.statusText, color: "red" })
         );
         dispatch(changeLoading(false))
-      }).finally(()=> {
-        navigate("/")
       })
   };
-
- 
 
   return (
     <div>

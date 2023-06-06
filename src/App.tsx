@@ -14,18 +14,18 @@ function App() {
   const token = getItem("access_token");
 
   const fetchCheckToken = async () => {
-    try {
-      const response = await privateAxios.get("/posts/my");
-      if (response.status === 200) {
-        setLogin("isLogin", "true");
-        setIsLogedIn(true);
-      }
-    } catch (error: any) {
-      dispatch(changeAlert({ message: error.response.data, color: "red" }));
-      setLogin("isLogin", "false");
-      setIsLogedIn(false);
+   await privateAxios.get("/posts/my").then((res) => {
+    if (res.status === 200) {
+      setLogin("isLogin", "true");
+      setIsLogedIn(true);
     }
-  };
+   }).catch((res)=>{
+    dispatch(changeAlert({ message: res.statusText, color: "red" }));
+    setLogin("isLogin", "false");
+    setIsLogedIn(false);
+  })
+   }
+    
 
   useEffect(() => {
     if (token) {
