@@ -32,6 +32,8 @@ const Login = () => {
       .login(newSchema)
       .then((res) => {
         if (res.status === 200) {
+          console.log(res.data);
+          
           dispatch(changeLogin(true));
           setLogin("isLogin","true")
           setItem("access_token", res.data.token);

@@ -128,11 +128,11 @@ export const Post = () => {
 
   useEffect(() => {
     getCategories();
-    getPost();
   }, []);
 
     useEffect(() => {
       getPosts();
+      getPost();
       const like = getLike(`like`);
       if (like) {
         const parsedLike = JSON.parse(like);

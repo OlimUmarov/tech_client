@@ -93,7 +93,7 @@ export const publicRoutes = createBrowserRouter([
     },
     {
       path: '/login',
-      errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
+      errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
       element: <Navigate to='/' replace  />,
       index: true,
     },

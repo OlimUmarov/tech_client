@@ -14,7 +14,7 @@ export const MyPosts = () => {
   const { skeleton } = useAppSelector((state) => state.contentSlice);
   const { showAlert } = useAppSelector((state) => state.contentSlice);
 
-  const getMyPost = async () => {
+  const getMyPosts = async () => {
     dispatch(changeSkeleteon(true));
     await postsApi
       .getMyPosts()
@@ -63,7 +63,7 @@ export const MyPosts = () => {
   });
 
   useEffect(() => {
-    getMyPost();
+    getMyPosts();
   }, [showAlert]);
 
   return (

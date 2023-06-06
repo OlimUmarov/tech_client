@@ -80,6 +80,8 @@ const SignUp = () => {
       .register(newSchema)
       .then((res) => {
         if (res.status === 200) {
+          console.log(newSchema);
+          
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           navigate("/login");
         }
