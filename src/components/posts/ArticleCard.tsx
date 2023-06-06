@@ -11,8 +11,9 @@ export const ArticleCard = (props: Posts) => {
           <div className="post-item__content ">
             
             <section className="lg:h-30">
-              <h1 className="post-item__title max-sm:mb-2">{props.title}</h1>
-              <div className="post-item__short max-sm:truncate  mb-4">
+            <h1 className="post-item__title max-sm:mb-2 overflow-hidden text-2xl leading-[1.4] max-h-[2.8em] -webkit-line-clamp-2 line-clamp-2">
+                {props.title}</h1>
+              <div className="post-item__short -webkit-line-clamp-2 line-clamp-2 mb-4">
                 <p>{props.shortcontent}</p>
               </div>
             </section>

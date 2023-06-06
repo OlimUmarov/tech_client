@@ -6,7 +6,6 @@ import { changeAlert, changeSkeleteon } from "../../features/contentSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { ArticleCardSkeleton } from "../../components/skeletons/ArticleCardSkeleton";
 import { categoriesApi } from "../../api/categoriesApi";
-import BasicPagination from "../../components/pagination/Pagination";
 
 function Categories() {
   const [catPosts, setCatPosts] = useState<Array<Posts>>([]);
@@ -20,12 +19,10 @@ function Categories() {
 
   const getPosts = async (cat_id: string | number) => {
     dispatch(changeSkeleteon(true));
-    if (catList[0] === undefined) return new Error("Cat List is empty");
-    console.log(catList[0].id);
-    
-    const default_cat_id = catList[0].id
+    const def_cat_id = catList[0].id
+    if (catList[0] === undefined) return new Error("Cat List is empty");   
     await categoriesApi
-      .getPostsByCategory(currentPage, cat_id === undefined? default_cat_id : cat_id  )
+      .getPostsByCategory(currentPage, cat_id === undefined ? def_cat_id : cat_id)
       .then((res) => {
         if (res.status === 200) {
           setCatPosts(res.data.results);
@@ -59,11 +56,6 @@ function Categories() {
           changeAlert({ message: err.response.statusText, color: "red" })
         );
       });
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    getPosts(page);
   };
 
   const showCatPosts: JSX.Element[] = catPosts.map((post) => {
@@ -132,15 +124,6 @@ function Categories() {
               kategoriyani tanlagan holda yarating.
             </p>
           </div>
-        </div>
-      )}
-      {catPosts.length && (
-        <div className="w-full flex justify-center items-center">
-          <BasicPagination
-            totalCount={totalCount}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
         </div>
       )}
     </div>

@@ -2,12 +2,14 @@ import { Posts } from "../../types/posts";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "./formatDate";
 import { MdVisibility } from "react-icons/md";
+import { useEffect, useRef } from "react";
 
 export const PostCard = (props: Posts) => {
   const navigate = useNavigate();
 
+
   function linkToPost() {
-    navigate(`/post/${props.id}`)
+    navigate(`/post/${props.id}`);
   }
 
   return (
@@ -33,7 +35,7 @@ export const PostCard = (props: Posts) => {
         </span>
         <div className="flex justify-center items-center gap-1">
           <MdVisibility size={18} color="#7CA9C2" />
-          <span className="post-item__btn">{props.user_id}</span>
+          <span className="post-item__btn">{props.views}</span>
         </div>
 
         <span className="post-item__btn flex items-center">

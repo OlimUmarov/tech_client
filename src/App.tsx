@@ -8,34 +8,34 @@ import { changeAlert } from "./features/contentSlice";
 import { Loading } from "./components/loading/Loading";
 
 function App() {
-  const token = getItem("access_token");
   const dispatch = useAppDispatch();
-  const {isLogin} = useAppSelector((state) => state.contentSlice)
+  const { isLogin } = useAppSelector((state) => state.contentSlice);
   const [isLogedIn, setIsLogedIn] = useState<boolean>(false);
+  const token = getItem("access_token");
 
   const fetchCheckToken = async () => {
     try {
       const response = await privateAxios.get("/posts/my");
       if (response.status === 200) {
         setLogin("isLogin", "true");
-        setIsLogedIn(true)
+        setIsLogedIn(true);
       }
     } catch (error: any) {
       dispatch(changeAlert({ message: error.response.data, color: "red" }));
       setLogin("isLogin", "false");
-      setIsLogedIn(false)
+      setIsLogedIn(false);
     }
   };
 
   useEffect(() => {
     if (token) {
+      fetchCheckToken();
       const getIsLogin = getLogin("isLogin");
       getIsLogin === "true" ? setIsLogedIn(true) : setIsLogedIn(false);
-      fetchCheckToken();
     } else {
       setIsLogedIn(false);
     }
-  }, [token,isLogedIn]);
+  }, [token, isLogedIn, isLogin]);
 
   if (isLogedIn) {
     return (

@@ -1,13 +1,19 @@
 import { EditPosts } from "../../components/posts/EditPosts";
 import { useParams } from "react-router-dom";
 import { Post, postsApi } from "../../api/postsApi";
+import { useAppSelector,useAppDispatch } from "../../app/hook";
+import {  changeLoading,changeAlert } from "../../features/contentSlice";
 import { useEffect, useState } from "react";
+import { Loading } from "../../components/loading/Loading";
 
 export const EditPost = () => {
   const { id } = useParams();
+  const { isLoading } = useAppSelector((state) => state.contentSlice);
   const [post, setPost] = useState<Post>({});
+  const dispatch = useAppDispatch();
 
   const getMyPostData = async () => {
+    dispatch(changeLoading(true))
     if (!id || id === undefined) return new Error("asda");
     const post_id = parseInt(id);
     await postsApi.getMyPost(post_id).then((res) => {
@@ -21,9 +27,16 @@ export const EditPost = () => {
           id: post_id
         };
         setPost(result) 
-               
+        dispatch(changeLoading(false))
       }
-    });
+    }).catch(()=> {
+      dispatch(changeLoading(false))
+      dispatch(
+        changeAlert({ message: "Post bilan xatolik yuz berdi", color: "red" })
+      );
+    }).finally(()=> {
+      dispatch(changeLoading(false))
+    })
   };
 
   useEffect(() => {
@@ -34,6 +47,7 @@ export const EditPost = () => {
     <div className="bg-white">
       <div className=" contain">
         <EditPosts post={post}/>
+        {(isLoading || !post) &&  <Loading/>}
       </div>
     </div>
   );

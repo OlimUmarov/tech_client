@@ -1,6 +1,6 @@
 import { RiArrowDropDownLine, RiNewspaperLine } from "react-icons/ri";
 import { useState,useRef,useEffect } from "react";
-import {  useAppDispatch } from "../../app/hook";
+import {  useAppDispatch, useAppSelector } from "../../app/hook";
 import { NavLink } from "react-router-dom";
 import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
@@ -9,6 +9,7 @@ import { changeLogin } from "../../features/contentSlice";
 
 export const UserAccount = () => {
   const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
+  const {isLogin} = useAppSelector((state) => state.contentSlice)
   const elementRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch()
 
@@ -20,7 +21,7 @@ export const UserAccount = () => {
     removeItem("access_token");
     deleteCatId("catId")
     deleteLike("like")
-    dispatch(changeLogin(false))
+    dispatch(changeLogin(!isLogin))
     setLogin("isLogin","false")
     };
 

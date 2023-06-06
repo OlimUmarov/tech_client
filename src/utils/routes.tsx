@@ -47,17 +47,6 @@ export const publicRoutes = createBrowserRouter([
           element: <PublicLayout><Categories /></PublicLayout>
         },
         {
-          path: '/post',
-          errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
-          element: <Navigate to='/login' replace  />,
-          children: [
-          {
-            path: "/post/:id",
-            element: <Navigate to='/login' replace  />,
-          }
-          ]
-        },
-        {
           path: '/search',
           element: <Navigate to='/login' replace  />,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
@@ -74,7 +63,11 @@ export const publicRoutes = createBrowserRouter([
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><Login /></PublicLayout>
         },
-
+        {
+          path: `/post/:id`,
+          errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
+          element: <PublicLayout> <Post/> </PublicLayout>,
+        }, 
     
         {
           path: '*',
@@ -92,15 +85,15 @@ export const publicRoutes = createBrowserRouter([
       index: true,
     },
     {
-      path: '/login',
-      errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-      element: <Navigate to='/' replace  />,
-      index: true,
-    },
-    {
       path: '/all-posts',
       errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
       element: <PrivateLayout> <AllPosts /> </PrivateLayout>,
+      index: true,
+    },
+    {
+      path: '/login',
+      errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
+      element: <Navigate to="/all-posts" replace/>,
       index: true,
     },
         {
@@ -149,12 +142,12 @@ export const publicRoutes = createBrowserRouter([
         {
           path: `/post`,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
+          element: <PrivateLayout><Navigate to="/all-posts" replace/> </PrivateLayout>,
+        }, 
+        {
+          path: `post/:id`,
+          errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PrivateLayout> <Post/> </PrivateLayout>,
-          children: [
-            {
-              path: '/post/:id',
-            },
-          ]
         }, 
         {
           path: '/search',

@@ -80,7 +80,8 @@ function PopularPosts() {
         {skeleton && <ArticleCardSkeleton />}
       </div>
 
-      {postList.length && (
+      
+      {postList.length > 9 ? (
         <div className="w-full flex justify-center items-center">
           <BasicPagination
             totalCount={totalCount}
@@ -88,7 +89,7 @@ function PopularPosts() {
             onPageChange={handlePageChange}
           />
         </div>
-      )}
+      ): null}
     </div>
   );
 }

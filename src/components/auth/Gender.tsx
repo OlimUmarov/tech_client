@@ -1,49 +1,43 @@
-import {
-    Tabs,
-    TabsHeader,
-    Tab,
-} from "@material-tailwind/react";
-import {useState} from 'react'
+import { useState } from 'react';
+
 type Props = {
-setGender: (data: string)=> void,
+  setGender: (data: string) => void,
 }
 
-const Gender = ({setGender}: Props) => {
-    const [activeTab, setActiveTab] = useState("erkak");
+const Gender = ({ setGender }: Props) => {
+  const [activeTab, setActiveTab] = useState("erkak");
 
-    function handleClick(data: string){
-        setActiveTab(data)
-        setGender(data)
-    }
+  function handleClick(data: string) {
+    setActiveTab(data);
+    setGender(data);
+  }
 
-    const data = [
-        {
-            label: "Erkak",
-            value: "erkak",
-        },
-        {
-            label: "Ayol",
-            value: "ayol",
-        },
-    ];
+  const data = [
+    {
+      label: "Erkak",
+      value: "erkak",
+    },
+    {
+      label: "Ayol",
+      value: "ayol",
+    },
+  ];
 
-    const genders = data.map(({ label, value }) => (
-        <Tab key={value} value={value} 
-            onClick={() => handleClick(value)}
-            className={`flex z-50 justify-center items-center text-sm border-2 border-[#F5F7F9] rounded-lg ${activeTab === value ? "border-2 border-[#01A0DA]" : ""}`}
-            >
-            {label}
-        </Tab>
-    ))
+  const genders = data.map(({ label, value }) => (
+    <div
+      key={value}
+      onClick={() => handleClick(value)}
+      className={`flex justify-center w-full  items-center border-2 border-slate-100 text-sm rounded-lg ${activeTab === value ? "border-2 border-blue-500" : ""}`}
+    >
+      {label}
+    </div>
+  ));
 
-    return (
-
-        <Tabs value="activeTab">
-            <TabsHeader className="gender z-50 w-full  h-12 relative cursor-pointer">
-                {genders}
-            </TabsHeader>
-        </Tabs>
-    );
+  return (
+    <div className="gender w-full relative cursor-pointer flex rounded-md ">
+      {genders}
+    </div>
+  );
 }
 
-export default Gender
+export default Gender;

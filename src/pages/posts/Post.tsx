@@ -7,13 +7,11 @@ import { PostCard } from "../../components/posts/PostCard";
 import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../../components/posts/formatDate";
 import { AiTwotoneLike, AiOutlineLike } from "react-icons/ai";
-import { useAppSelector,useAppDispatch } from "../../app/hook";
+import { useAppSelector, useAppDispatch } from "../../app/hook";
 import { MdVisibility } from "react-icons/md";
 import { getLike, setLike } from "../../lib/itemStorage";
 import { changeAlert, changeLoading } from "../../features/contentSlice";
-import {LoadingSpinner} from "../../components/buttons/LoadingButton";
 import { Loading } from "../../components/loading/Loading";
-
 
 export const Post = () => {
   const { isLoading } = useAppSelector((state) => state.contentSlice);
@@ -25,7 +23,7 @@ export const Post = () => {
   const dispatch = useAppDispatch();
 
   const getPost = async () => {
-    dispatch(changeLoading(true))
+    dispatch(changeLoading(true));
     try {
       const response: AxiosResponse<any> = await postsApi.getPost(id);
       const result: Posts = {
@@ -46,12 +44,14 @@ export const Post = () => {
       };
 
       setPost({ ...result });
-      dispatch(changeLoading(false))
+      dispatch(changeLoading(false));
     } catch (error: any) {
-      dispatch(changeLoading(false))
+      dispatch(changeLoading(false));
       dispatch(
         changeAlert({ message: "Post bilan xatolik yuz berdi", color: "red" })
       );
+    } finally {
+      dispatch(changeLoading(false));
     }
   };
 
@@ -104,6 +104,7 @@ export const Post = () => {
       id: post.id,
       img: post.img,
       likes: post.likes,
+      views: post.views,
       shortcontent: post.shortcontent,
       title: post.title,
       user_id: post.user_id,
@@ -130,16 +131,18 @@ export const Post = () => {
     getCategories();
   }, []);
 
-    useEffect(() => {
-      getPosts();
-      getPost();
-      const like = getLike(`like`);
-      if (like) {
-        const parsedLike = JSON.parse(like);
-        const filterLike = parsedLike.filter((likeObj: any) => likeObj.post_id == id);
-        filterLike.length > 0 ? setIsActive(true) : setIsActive(false);
-      }      
-    }, [id]);
+  useEffect(() => {
+    getPosts();
+    getPost();
+    const like = getLike(`like`);
+    if (like) {
+      const parsedLike = JSON.parse(like);
+      const filterLike = parsedLike.filter(
+        (likeObj: any) => likeObj.post_id == id
+      );
+      filterLike.length > 0 ? setIsActive(true) : setIsActive(false);
+    }
+  }, [id]);
 
   return (
     <div className={`relative ${isLoading && "overflow-hidden"}`}>
@@ -206,7 +209,7 @@ export const Post = () => {
           {posts}
         </div>
       </div>
-      {(isLoading || !postList.length) &&  <Loading/>}
+      {(isLoading || !postList.length) && <Loading />}
     </div>
   );
 };

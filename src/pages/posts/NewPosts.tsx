@@ -84,7 +84,8 @@ function NewPosts() {
 
       </div>
 
-      {postList.length && (
+     
+      {postList.length > 9 ? (
         <div className="w-full flex justify-center items-center">
           <BasicPagination
             totalCount={totalCount}
@@ -92,7 +93,7 @@ function NewPosts() {
             onPageChange={handlePageChange}
           />
         </div>
-      )}
+      ): null}
     </div>
   );
 }

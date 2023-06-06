@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../app/hook";
 import { postsApi } from "../../api/postsApi";
 import { Category, categoriesApi } from "../../api/categoriesApi";
 import Button from "../buttons/Button";
+import { catListType } from "../../types/posts";
 
 const quillModules = {
   toolbar: [
@@ -29,8 +30,11 @@ const quillFormats = [
   "image",
 ];
 
-export const CreatePosts = () => {
-  const [categoryList, setCategoryList] = useState<Array<Category>>([]);
+type Props = {
+  categoryList: Array<catListType>
+}
+
+export const CreatePosts = ({categoryList}:Props) => {
   const [title, setTitle] = useState<string>("");
   const [shortContent, setShortContent] = useState<string>("");
   const [cat_id, setCat_id] = useState<string>("");
@@ -39,18 +43,6 @@ export const CreatePosts = () => {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const getCategories = async () => {
-    await categoriesApi
-      .getCategories()
-      .then((res) => {
-        setCategoryList(res.data.results);
-      })
-      .catch((err) => {
-        dispatch(
-          changeAlert({ message: err.response.statusText, color: "red" })
-        );
-      });
-  };
 
   const sendPost = async () => {
     dispatch(changeLoading(true));
@@ -116,9 +108,6 @@ export const CreatePosts = () => {
     );
   });
 
-  useEffect(() => {
-    getCategories();
-  }, []);
 
   return (
     <div className="content pt-10 pb-10">

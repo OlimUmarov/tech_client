@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 import buttonNames from "../../components/buttons/buttonNames";
 import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
-import {  useAppDispatch } from "../../app/hook";
+import {  useAppDispatch, useAppSelector } from "../../app/hook";
 import { changeAlert, changeLogin,changeLoading } from "../../features/contentSlice";
 import { setItem, setLogin } from "../../lib/itemStorage";
 import Button from "../../components/buttons/Button";
@@ -13,7 +14,8 @@ type FormData = yup.InferType<typeof schemaLogin>;
 
 const Login = () => {
   const dispatch = useAppDispatch();
-
+const navigate = useNavigate()
+const {isLogin} = useAppSelector((state)=> state.contentSlice)
   const {
     register,
     handleSubmit,
@@ -33,12 +35,12 @@ const Login = () => {
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
-          
-          dispatch(changeLogin(true));
+          dispatch(changeLogin(!isLogin));
           setLogin("isLogin","true")
           setItem("access_token", res.data.token);
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           dispatch(changeLoading(false))
+          navigate("/")
         }
       })
       .catch((err) => {
@@ -46,7 +48,9 @@ const Login = () => {
           changeAlert({ message: err.response.statusText, color: "red" })
         );
         dispatch(changeLoading(false))
-      });
+      }).finally(()=> {
+        navigate("/")
+      })
   };
 
  
