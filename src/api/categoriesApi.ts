@@ -1,4 +1,3 @@
-import privateAxios from "../lib/privateAxios";
 import { publicAxios } from "../lib/publicAxios";
 
 export type Category = {
@@ -8,6 +7,6 @@ export type Category = {
 }
 
 export const categoriesApi = {
-    getCategories: async() => await privateAxios.get('/categories'),
+    getCategories: async() => await publicAxios.get('/categories'),
     getPostsByCategory: async (page: number,cat_id: number | string) => await publicAxios.get(`/posts?page=${page}&orderBy=created_at&orderDirection=DESC&category=${cat_id}`),
 }

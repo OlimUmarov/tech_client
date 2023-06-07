@@ -41,7 +41,13 @@ export const publicRoutes = createBrowserRouter([
         {
           path: '/categories',
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
-          element: <PublicLayout><Categories /></PublicLayout>
+          element: <PublicLayout><Categories /></PublicLayout>,
+          children: [
+            {
+              path: "/categories/:id",
+              element: <PublicLayout><Categories /></PublicLayout>,
+            }
+          ]
         },
         {
           path: '/search',
