@@ -10,7 +10,7 @@ import BasicPagination from "../../components/pagination/Pagination";
 
 function PopularPosts() {
   const [postList, setPostList] = useState<Array<Posts>>([]);
-  const orderBy:orderByType = "views"
+  const orderBy: orderByType = "views";
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(1);
   const dispatch = useAppDispatch();
@@ -80,7 +80,6 @@ function PopularPosts() {
         {skeleton && <ArticleCardSkeleton />}
       </div>
 
-      
       {postList.length > 9 ? (
         <div className="w-full flex justify-center items-center">
           <BasicPagination
@@ -89,7 +88,24 @@ function PopularPosts() {
             onPageChange={handlePageChange}
           />
         </div>
-      ): null}
+      ) : null}
+
+      {!postList.length && !skeleton && (
+        <div>
+          <div className="contain flex flex-col justify-center items-center pt-20">
+            <div>
+              <h1 className="w-96 mb-4 text-2xl font-medium">
+                Postlar hali yaratilmagan
+              </h1>
+              <p className="w-96">
+                Kategoriyaga post qoshmoqchi bo'lsangiz, iltimos post yaratish
+                tugmasini bosing, va yaratmoqchi bolgan postingizni ushbu
+                kategoriyani tanlagan holda yarating.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -26,23 +26,20 @@ export const publicRoutes = createBrowserRouter([
       path: '/all-posts',
       errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
       element: <PublicLayout> <AllPosts /> </PublicLayout>,
-      index: true,
+    
     },
         {
           path: '/new-posts',
-          index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><NewPosts /></PublicLayout>
         },
         {
           path: '/popular-posts',
-          index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><PopularPosts /></PublicLayout>
         },
         {
           path: '/categories',
-          index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><Categories /></PublicLayout>
         },
@@ -53,13 +50,11 @@ export const publicRoutes = createBrowserRouter([
         }, 
         {
           path: '/sign-up',
-          index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><SignUp /></PublicLayout>
         },
         {
           path: '/login',
-          index: true,
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><Login /></PublicLayout>
         },
@@ -88,25 +83,21 @@ export const publicRoutes = createBrowserRouter([
       path: '/all-posts',
       errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
       element: <PrivateLayout> <AllPosts /> </PrivateLayout>,
-      index: true,
     }, 
     {
       path: '/login',
       errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
       element: <PrivateLayout><Navigate to="/all-posts" replace/></PrivateLayout>,
-      index: true,
     },
         {
           path: '/new-posts',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
           element: <PrivateLayout> <NewPosts /> </PrivateLayout>,
-          index: true,
         },
         {
           path: '/popular-posts',
           errorElement: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
           element: <PrivateLayout> <PopularPosts /> </PrivateLayout>,
-          index: true,
         },
         {
           path: '/categories',
@@ -158,7 +149,7 @@ export const publicRoutes = createBrowserRouter([
           path: '*',
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PrivateLayout> <ErrorPage /> </PrivateLayout>,
-          index: true,
+    
         },
 
 
