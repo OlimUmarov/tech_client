@@ -79,9 +79,8 @@ const SignUp = () => {
     await authorization
       .register(newSchema)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 200) { 
           console.log(newSchema);
-
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           navigate("/login");
         }
