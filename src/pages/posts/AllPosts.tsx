@@ -99,9 +99,7 @@ function AllPosts() {
                 Postlar hali yaratilmagan
               </h1>
               <p className="w-96">
-                Kategoriyaga post qoshmoqchi bo'lsangiz, iltimos post yaratish
-                tugmasini bosing, va yaratmoqchi bolgan postingizni ushbu
-                kategoriyani tanlagan holda yarating.
+                Postlar hali yaratilmagan, post qoshilishini kutishingiz mumkin yoki ozingiz post yaratishingiz mumkin.
               </p>
             </div>
           </div>

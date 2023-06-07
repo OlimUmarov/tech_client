@@ -96,13 +96,11 @@ function NewPosts() {
         <div>
           <div className="contain flex flex-col justify-center items-center pt-20">
             <div>
-              <h1 className="w-96 mb-4 text-2xl font-medium">
+            <h1 className="w-96 mb-4 text-2xl font-medium">
                 Postlar hali yaratilmagan
               </h1>
               <p className="w-96">
-                Kategoriyaga post qoshmoqchi bo'lsangiz, iltimos post yaratish
-                tugmasini bosing, va yaratmoqchi bolgan postingizni ushbu
-                kategoriyani tanlagan holda yarating.
+                Postlar hali yaratilmagan, post qoshilishini kutishingiz mumkin yoki ozingiz post yaratishingiz mumkin.
               </p>
             </div>
           </div>

@@ -79,8 +79,20 @@ export const MyPosts = () => {
         {skeleton && <ArticleCardSkeleton />}
         {skeleton && <ArticleCardSkeleton />}
         </div>
-        {!postList.length && (
-        <div>Not added yet</div>
+        {!postList.length && !skeleton && (
+        <div>
+          <div className="contain flex flex-col justify-center items-center pt-20">
+            <div>
+              <h1 className="w-96 mb-4 text-2xl font-medium">
+                Siz hali post yaratmadingiz!
+              </h1>
+              <p className="w-96">
+                Post qoshmoqchi bo'lsangiz, iltimos post yaratish
+                tugmasini bosing.
+              </p>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
