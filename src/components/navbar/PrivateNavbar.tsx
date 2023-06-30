@@ -170,7 +170,7 @@ const PrivateNavbar = () => {
                           <input
                             type="search"
                             id="default-search"
-                            className="block transition-all duration-300 ease  p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
+                            className="block transition-all duration-300 ease  p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 trans"
                             placeholder="Izlash..."
                             required
                             value={searchQuery}

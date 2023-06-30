@@ -45,7 +45,7 @@ export const UserAccount = () => {
           onClick={handleMenu}
           className="flex items-center blue py-1 px-2 border border-white outline-none custom-select  max-md:font-xs font-base  rounded-md "
         >
-          <span>Account</span>
+          <span>Akkaunt</span>
           <RiArrowDropDownLine size={25} />
         </button>
         {isMenuClicked && (
