@@ -16,6 +16,12 @@ export interface Posts {
     name?: string,
     link?: string,
     views?:string,
+    author?: {
+      first_name?: string,
+      last_name?: string,
+      created_at?: string,
+      
+    }
   }
   export type orderByType = 'created_at' | 'likes' | 'views'
 

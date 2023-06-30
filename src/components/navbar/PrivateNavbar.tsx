@@ -9,6 +9,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { GrFormClose } from "react-icons/gr";
 import { UserAccount } from "../buttons/UserAccount";
+import Logo from "../../assets/logo1.svg"
 
 const PrivateNavbar = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -24,9 +25,21 @@ const PrivateNavbar = () => {
     }
   };
 
+  
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
+    const typedQuery = event.target.value;
+    setSearchQuery(typedQuery);
+
+    if (typedQuery.trim() !== '') {
+      navigate(`/search?query=${encodeURIComponent(typedQuery)}`);
+    } else {
+      navigate(`/all-posts`);
+    }
   };
+
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchQuery(event.target.value);
+  // };
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -43,7 +56,7 @@ const PrivateNavbar = () => {
     return (
       <NavLink to={navbar.link} key={navbar.link} onClick={handleMenuToggle}>
         <span
-          className={` pr-4  pl-  text-gray-500 text-base max-lg:text-xl hover:text-blue-500 lg:hover:bg-transparent ${
+          className={` pr-4 text-gray-500 text-base max-lg:text-xl hover:text-blue-500 lg:hover:bg-transparent ${
             currentPath ? "text-blue-500" : ""
           }
         lg:border-0 lg:hover:text-primary-500 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`}
@@ -62,8 +75,8 @@ const PrivateNavbar = () => {
             <div className="flex flex-wrap justify-center items-center gap-5">
               <NavLink to="/" className="flex items-center">
                 <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="mr-3 h-6 sm:h-9"
+                  src={Logo}
+                  className="sm:h-6 h-6 rounded-full object-cover mr-1"
                   alt="MazMoon Logo"
                 />
                 <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
@@ -152,7 +165,7 @@ const PrivateNavbar = () => {
                     <div className="w-1/2 max-sm:w-full max-md:w-2/3 h-screen bg-white absolute top-0 right-0">
 
                       <section className="flex flex-wrap sm:hidden gap-2 pt-20 px-6">
-                        <div className="relative ">
+                        <div className="relative">
                           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none transition duration-150 ease-in-out">
                             <svg
                               aria-hidden="true"

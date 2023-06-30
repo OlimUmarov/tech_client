@@ -18,11 +18,11 @@ export type Post = {
 
 
 export const postsApi = {
-  allPosts: async (page: number) => await publicAxios.get(`/posts?page=${page}`),
-  filteredPosts: async (orbderBy: orderByType,page: number) => await publicAxios.get(`/posts?page=${page}&orderBy=${orbderBy}&orderDirection=DESC`),
+  allPosts: async (page: number) => await publicAxios.get(`/posts?isactive=true&page=${page}`),
+  filteredPosts: async (orbderBy: orderByType,page: number) => await publicAxios.get(`/posts?isactive=true&page=${page}&orderBy=${orbderBy}&orderDirection=DESC`),
   paginationPosts: async (page: number) => await publicAxios.get(`/posts?page=${page}`),
-  allPostsByPage: async (page: number) => await publicAxios.get(`/posts?page=${page}&orderBy=created_at&orderDirection=DESC`),
-  getPost: async (id: number) => await publicAxios.get(`/posts/${id}`),
+  allPostsByPage: async (page: number) => await publicAxios.get(`/posts?isactive=true&page=${page}&orderBy=created_at&orderDirection=DESC`),
+  getPost: async (id: number) => await publicAxios.get(`/posts/isactive=true&${id}`),
   postPost: async (data:FormData) => await privateAxios.post("/posts", data, {
     headers: {
       'Content-Type': 'multipart/form-data'

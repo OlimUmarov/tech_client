@@ -8,5 +8,5 @@ export type Category = {
 
 export const categoriesApi = {
     getCategories: async() => await publicAxios.get('/categories'),
-    getPostsByCategory: async (page: number,cat_id: number | string) => await publicAxios.get(`/posts?page=${page}&orderBy=created_at&orderDirection=DESC&category=${cat_id}`),
+    getPostsByCategory: async (page: number,cat_id: number | string) => await publicAxios.get(`/posts?isactive=true&page=${page}&orderBy=created_at&orderDirection=DESC&category=${cat_id}`),
 }

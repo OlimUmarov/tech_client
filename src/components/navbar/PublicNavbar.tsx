@@ -5,6 +5,7 @@ import Button from "../buttons/Button";
 import buttonNames from "../buttons/buttonNames";
 import { IoIosSearch } from "react-icons/io";
 import { GrFormClose } from "react-icons/gr";
+import Logo from "../../assets/logo1.svg"
 
 const PublicNavbar = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -58,8 +59,8 @@ const PublicNavbar = () => {
             <div className="flex flex-wrap justify-center items-center gap-5">
               <NavLink to="/" className="flex items-center">
                 <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="mr-3 h-6 sm:h-9"
+                  src={Logo}
+                  className="sm:h-6 h-6 mr-1 rounded-full object-cover"
                   alt="MazMoon logo"
                 />
                 <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
@@ -167,7 +168,7 @@ const PublicNavbar = () => {
                             type="search"
                             id="default-search"
                             className="block w-full transition-all duration-300 ease  p-2  pl-10 text-sm text-gray-900 border border-white   focus:bg-white outline-none  rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 trans"
-                            placeholder="Izlash..."
+                            placeholder="Izlass=h..."
                             required
                             value={searchQuery}
                             onChange={handleInputChange}

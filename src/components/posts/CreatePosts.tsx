@@ -1,5 +1,6 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import ReactQuill from "react-quill";
+import { useNavigate } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import { changeAlert, changeLoading } from "../../features/contentSlice";
 import { useAppDispatch } from "../../app/hook";
@@ -40,6 +41,8 @@ type categoryType = {
 
 export const CreatePosts = ({categoryList}:Props) => {
   const [title, setTitle] = useState<string>("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [shortContent, setShortContent] = useState<string>("");
   const [cat_id, setCat_id] = useState<string>("");
   const [editorContent, setEditorContent] = useState<string>("");
@@ -47,7 +50,7 @@ export const CreatePosts = ({categoryList}:Props) => {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-
+const navigate = useNavigate()
   const sendPost = async () => {
     dispatch(changeLoading(true));
     if (!file){
@@ -75,6 +78,7 @@ export const CreatePosts = ({categoryList}:Props) => {
           setShortContent("");
           setFile(null);
           dispatch(changeLoading(false));
+          navigate("/my-posts")
         }
       })
       .catch((err) => {
@@ -96,6 +100,12 @@ export const CreatePosts = ({categoryList}:Props) => {
         };
         reader.readAsDataURL(file);
       }
+    }
+  };
+
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // Trigger file input click
     }
   };
 
@@ -128,7 +138,7 @@ export const CreatePosts = ({categoryList}:Props) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Postni sarlavhasini kiriting"
+          placeholder="Post sarlavhasini kiriting"
           className="w-full p-3 text-sm border border-gray-400 outline-none focus:border-blue-500"
         />
       </div>
@@ -136,7 +146,7 @@ export const CreatePosts = ({categoryList}:Props) => {
       {/* Set  ShortContent  */}
       <div className="mb-6 flex flex-col gap-2 ">
         <h1 className="text-md font-medium max-md:text-base max-sm:text-sm">
-          Kisqacha ma'lumot
+          Qisqacha ma'lumot
         </h1>
         <textarea
           value={shortContent}
@@ -166,7 +176,7 @@ export const CreatePosts = ({categoryList}:Props) => {
       {/* Set Content  */}
       <div className="flex flex-col gap-2 mb-10">
         <h1 className="text-md font-medium max-md:text-base max-sm:text-sm">
-          Content
+        Kontent
         </h1>
         <div className="h-96 max-sm:h-80">
           <ReactQuill
@@ -183,7 +193,16 @@ export const CreatePosts = ({categoryList}:Props) => {
        {/* Set Image  */}
        <div className="pt-10 mb-10 flex flex-col justify-center items-start gap-4">
        {previewUrl && <img src={previewUrl} alt="Selected" className="w-[300px] h-[300px] object-cover"/>  }     
-        <input type="file" onChange={handleSelectFile} />
+        {/* <input type="file" onChange={handleSelectFile} /> */}
+        <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        accept=".jpg,.jpeg,.png" // Specify accepted file extensions
+        onChange={handleSelectFile}
+      />
+      <button onClick={handleButtonClick} 
+      className="p-1 bg-slate-100 rounded-md border border-blue-500 hover:bg-slate-200">Rasimni tanlang</button>
       </div>
         <Button title="Yuborish" onClick={sendPost} active={true} />
     </div>

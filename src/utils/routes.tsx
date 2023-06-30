@@ -50,11 +50,6 @@ export const publicRoutes = createBrowserRouter([
           ]
         },
         {
-          path: '/search',
-          element: <Navigate to='/login' replace  />,
-          errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
-        }, 
-        {
           path: '/sign-up',
           errorElement: <PublicLayout> <ErrorPage /> </PublicLayout>,
           element: <PublicLayout><SignUp /></PublicLayout>

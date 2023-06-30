@@ -6,6 +6,7 @@ import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
 import { deleteCatId, deleteLike, removeItem, setLogin } from "../../lib/itemStorage";
 import { changeLogin } from "../../features/contentSlice";
+import Profile from "../../assets/profile.svg"
 
 export const UserAccount = () => {
   const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
@@ -43,9 +44,9 @@ export const UserAccount = () => {
       <div className="w-full lg:max-w-sm" ref={elementRef}>
         <button
           onClick={handleMenu}
-          className="flex items-center blue py-1 px-2 border border-white outline-none custom-select  max-md:font-xs font-base  rounded-md "
+          className="flex items-center py-1 px-2 border border-white outline-none custom-select  max-md:font-xs font-base  rounded-md "
         >
-          <span>Akkaunt</span>
+          <img src={Profile} alt="profile" className="w-8 h-8 border border-slate-300 rounded-full" />
           <RiArrowDropDownLine size={25} />
         </button>
         {isMenuClicked && (

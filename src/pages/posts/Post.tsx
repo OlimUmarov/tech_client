@@ -5,13 +5,14 @@ import { Posts } from "../../types/posts";
 import { Category, categoriesApi } from "../../api/categoriesApi";
 import { PostCard } from "../../components/posts/PostCard";
 import { Link, useParams } from "react-router-dom";
-import { formatDate } from "../../components/posts/formatDate";
+import { formatDate, formatDateAuthor } from "../../components/posts/formatDate";
 import { AiTwotoneLike, AiOutlineLike } from "react-icons/ai";
 import { useAppSelector, useAppDispatch } from "../../app/hook";
 import { MdVisibility } from "react-icons/md";
 import { getLike, setLike } from "../../lib/itemStorage";
 import { changeAlert, changeLoading } from "../../features/contentSlice";
 import { Loading } from "../../components/loading/Loading";
+import Author from "../../assets/authorization.svg"
 
 export const Post = () => {
   const { isLoading } = useAppSelector((state) => state.contentSlice);
@@ -41,6 +42,7 @@ export const Post = () => {
           title: res.data.title,
           views: res.data.views,
           user_id: res.data.user_id,
+          author: res.data.author,
         };
   
         setPost({ ...result });
@@ -109,6 +111,11 @@ export const Post = () => {
       title: post.title,
       user_id: post.user_id,
       name: post.name,
+      author: {
+        first_name: post.author?.first_name,
+      last_name: post.author?.last_name,
+      created_at: post.author?.created_at,
+      },
     };
     return (
       <Link key={post.id} to={`/post/${post.id}`}>
@@ -159,7 +166,17 @@ export const Post = () => {
           <h1 className="article_title max-md:text-3xl max-sm:text-2xl">
             {post?.title}
           </h1>
-          <h1 className="text-sm w-full mb-6">{post?.shortcontent}</h1>
+          <h1 className="text-sm w-full mb-4">{post?.shortcontent}</h1>
+          <div className="flex gap-2 mb-4 justify-start items-center">
+          <img src={Author} alt="author" className="w-12 h-12" />
+          <span className="flex flex-col">
+          <span className="flex gap-1 text-sm">
+            <p>{post?.author?.first_name}</p>
+            <p>{post?.author?.last_name}</p>
+            </span>
+            <span className="text-sm text-gray-500">{formatDateAuthor(post?.author?.created_at)}</span>
+          </span>
+          </div>
           <div className="article__page">
             <div className="post__flex flex gap-5">
               <span className="post-item__desc post text-base sm:text-sm cursor-pointer hover:scale-105 transition-all duration-100 ease-in-out">
