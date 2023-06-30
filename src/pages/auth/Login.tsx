@@ -38,6 +38,7 @@ const {isLogin} = useAppSelector((state)=> state.contentSlice)
           setItem("access_token", res.data.token);
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           dispatch(changeLoading(false))
+          window.location.reload()
         }
       })
       .catch((err) => {
@@ -53,7 +54,7 @@ const {isLogin} = useAppSelector((state)=> state.contentSlice)
       <div className="bg-slate-50 min-h-screen flex flex-col items-center py-10 ">
         <section className=" w-[600px] max-sm:max-w-[300px]   flex flex-col justify-center items-center">
           <h1 className="text-2xl max-md:text-xl  font-semibold pb-2">
-            Tech ga kirish
+            MazMoon ga kirish
           </h1>
           <p className="text-md max-md:text-base text-gray-500 pb-6">
             Qaytib kelganingizdan xursandmiz! Malumotlaringizni kiriting.
