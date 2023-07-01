@@ -201,7 +201,7 @@ const navigate = useNavigate()
         onChange={handleSelectFile}
       />
       <button onClick={handleButtonClick} 
-      className="p-1 bg-slate-100 rounded-md border border-blue-500 hover:bg-slate-200">Rasimni tanlang</button>
+      className="p-1 bg-slate-100 rounded-md border border-blue-500 hover:bg-slate-200">Rasmni tanlang</button>
       </div>
         <Button title="Yuborish" onClick={sendPost} active={true} />
     </div>

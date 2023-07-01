@@ -80,7 +80,7 @@ export const Post = () => {
   const handleLike = async () => {
     if (id === undefined) return new Error("id is not defined!");
     setLike(id, true);
-    setIsActive(!isActive);
+    setIsActive(true);
     if (!isActive) {
       await postsApi
         .postLike(id)
@@ -118,9 +118,9 @@ export const Post = () => {
       },
     };
     return (
-      <Link key={post.id} to={`/post/${post.id}`}>
+      <div key={post.id}>
         <PostCard {...props} />
-      </Link>
+      </div>
     );
   });
 
@@ -174,7 +174,7 @@ export const Post = () => {
             <p>{post?.author?.first_name}</p>
             <p>{post?.author?.last_name}</p>
             </span>
-            <span className="text-sm text-gray-500">{formatDateAuthor(post?.author?.created_at)}</span>
+            <span className="text-sm text-gray-500">{formatDateAuthor(post?.actived_at)}</span>
           </span>
           </div>
           <div className="article__page">

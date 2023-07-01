@@ -80,15 +80,14 @@ function PopularPosts() {
         {skeleton && <ArticleCardSkeleton />}
       </div>
 
-      {postList.length > 9 ? (
-        <div className="w-full flex justify-center items-center">
-          <BasicPagination
-            totalCount={totalCount}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      ) : null}
+     
+      {(!skeleton && postList.length > 0) &&<div className={`w-full flex justify-center items-center ${postList.length < 7 ? "absolute bottom-0" : ""}`}>
+       <BasicPagination
+         totalCount={totalCount}
+         currentPage={currentPage}
+         onPageChange={handlePageChange}
+       />
+     </div>}
 
       {!postList.length && !skeleton && (
         <div>

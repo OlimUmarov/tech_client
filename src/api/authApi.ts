@@ -32,6 +32,7 @@ export type login = {
       email: data.email,
       password: data.password,
     }),
+  getUser: async (id: string) => await publicAxios.post(`/users/${id}`),
 };
 
 export default authorization

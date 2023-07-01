@@ -68,8 +68,8 @@ function AllPosts() {
   }, []);
 
   return (
-    <div className="bg-slate-50 relative">
-      <div className="grid grid-cols-2 max-lg:grid-cols-1 max-sm:grid-cols-1 gap-8 pt-8 pb-8 contain">
+    <div className="bg-slate-50">
+      <div className={`grid grid-cols-2 max-lg:grid-cols-1 max-sm:grid-cols-1 gap-8 pt-8 pb-8 contain`}>
         {!skeleton && posts}
         {skeleton && <ArticleCardSkeleton />}
         {skeleton && <ArticleCardSkeleton />}
@@ -81,15 +81,13 @@ function AllPosts() {
         {skeleton && <ArticleCardSkeleton />}
       </div>
 
-      {postList.length > 9 ? (
-        <div className="w-full flex justify-center items-center">
-          <BasicPagination
-            totalCount={totalCount}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      ) : null}
+      {(!skeleton && postList.length > 0) &&<div className={`w-full flex justify-center items-center ${postList.length < 7 ? "absolute bottom-0" : ""}`}>
+       <BasicPagination
+         totalCount={totalCount}
+         currentPage={currentPage}
+         onPageChange={handlePageChange}
+       />
+     </div>}
 
       {!postList.length && !skeleton && (
         <div>

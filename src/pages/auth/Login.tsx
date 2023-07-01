@@ -7,7 +7,7 @@ import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
 import {  useAppDispatch, useAppSelector } from "../../app/hook";
 import { changeAlert, changeLogin,changeLoading } from "../../features/contentSlice";
-import { setItem, setLogin} from "../../lib/itemStorage";
+import { setItem, setLogin, setUser} from "../../lib/itemStorage";
 import Button from "../../components/buttons/Button";
 
 type FormData = yup.InferType<typeof schemaLogin>;
@@ -37,6 +37,7 @@ const {isLogin} = useAppSelector((state)=> state.contentSlice)
           navigate("/")
           setItem("access_token", res.data.token);
           setLogin("isLogin","true")
+          setUser("user", {id: res.data.user.id, email: res.data.user.email})
           dispatch(changeLogin(!isLogin));
           window.location.reload()
           dispatch(changeAlert({ message: res.statusText, color: "green" }));

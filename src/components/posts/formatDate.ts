@@ -18,7 +18,7 @@ export const formatDateAuthor = (date: string | undefined) => {
   const duration = moment.duration(now.diff(createdDate));
 
   if (duration.asMonths() >= 1) {
-    return createdDate.format("D MMM YYYY");
+    return createdDate.format("DD MMM YYYY");
   } else if (duration.asDays() >= 1) {
     return duration.asDays().toFixed(0) + " days ago";
   } else if (duration.asHours() >= 1) {

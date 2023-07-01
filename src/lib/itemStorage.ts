@@ -27,6 +27,8 @@ export const removeItem = (key: 'access_token') => {
     }
 }
 
+
+
 export const setLike = (post_id: string, liked: boolean) => {
     try {
       const existingLikesString = Cookies.get("like");
@@ -113,3 +115,31 @@ export const removeLogin =  (key: "isLogin") => {
         console.log(error)
     }
 }
+
+export const setUser = (key: "user", data: { id: string; email: string }) => {
+    try {
+      Cookies.set(key, JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  export const getUser = (key: "user") => {
+    try {
+      const data = Cookies.get(key);
+      if (data) {
+        return JSON.parse(data);
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  export const removeUser = (key: "user") => {
+    try {
+      Cookies.remove(key);
+    } catch (error) {
+      console.log(error);
+    }
+  };

@@ -1,11 +1,10 @@
 import { Posts } from "../../types/posts";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { formatDate } from "./formatDate";
 import { MdVisibility } from "react-icons/md";
 
 export const PostCard = (props: Posts) => {
   const navigate = useNavigate();
-
 
   function linkToPost() {
     navigate(`/post/${props.id}`);
@@ -13,11 +12,7 @@ export const PostCard = (props: Posts) => {
 
   return (
     <div
-      className="card flex flex-col cursor-pointer "
-      onClick={() => {
-        navigate(`/post`);
-        console.log(props.id);
-      }}
+      className="card w-72 flex flex-col cursor-pointer"
     >
       <section className="w-72 h-48">
         <img
@@ -29,9 +24,10 @@ export const PostCard = (props: Posts) => {
       </section>
 
       <section className="pt-4 flex gap-2 post-item__desc">
-        <span className="post-item__desc post hover:scale-105 transition-all duration-100 ease-in-out">
-          {props.name}
-        </span>
+        <Link to={`/categories/${props.category}`}
+        className="post-item__desc post hover:scale-105 transition-all duration-100 ease-in-out">
+          <span>{props.name}</span>
+        </Link>
         <div className="flex justify-center items-center gap-1">
           <MdVisibility size={18} color="#7CA9C2" />
           <span className="post-item__btn">{props.views}</span>

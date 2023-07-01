@@ -6,25 +6,27 @@ import { changeAlert, changeSkeleteon } from "../../features/contentSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { ArticleCardSkeleton } from "../../components/skeletons/ArticleCardSkeleton";
 import { categoriesApi } from "../../api/categoriesApi";
+import BasicPagination from "../../components/pagination/Pagination";
 
 function Categories() {
   const [catPosts, setCatPosts] = useState<Array<Posts>>([]);
   const [catList, setCatList] = useState<Array<Posts>>([]);
-  const currentPage = 1
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalCount, setTotalCount] = useState<number>(1);
   const [reload,setReload] = useState<boolean>(false)
   const { skeleton } = useAppSelector((state) => state.contentSlice);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
-  const getPosts = async () => {
+  const getPosts = async (currentPage: number) => {
     dispatch(changeSkeleteon(true));
-    const def_cat_id = catList[0].id
     if (catList[0] === undefined) return new Error("Cat List is empty");   
     await categoriesApi
-      .getPostsByCategory(currentPage, id === undefined ? def_cat_id : id)
+      .getPostsByCategory(currentPage, id? id : catList[0].id)
       .then((res) => {
         if (res.status === 200) {
           setCatPosts(res.data.results);
+          setTotalCount(Math.ceil(res.data.results.length / 10));
         }
       })
       .catch((err) => {
@@ -54,6 +56,11 @@ function Categories() {
           changeAlert({ message: err.response.statusText, color: "red" })
         );
       });
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    getPosts(page);
   };
 
   const showCatPosts: JSX.Element[] = catPosts.map((post) => {
@@ -91,7 +98,7 @@ function Categories() {
 
   useEffect(() => {
     getCategories();
-    getPosts()
+    getPosts(1)
   }, [id,reload]);
 
   return (
@@ -109,6 +116,14 @@ function Categories() {
         {skeleton && <ArticleCardSkeleton />}
         {skeleton && <ArticleCardSkeleton />}
       </div>
+
+      {(!skeleton && catPosts.length > 0)&&<div className={`w-full flex justify-center items-center ${catPosts.length < 9 ? "absolute bottom-0" : ""}`}>
+          <BasicPagination
+            totalCount={totalCount}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>}
 
       {!catPosts.length && !skeleton && (
         <div className="contain flex flex-col justify-center items-center pt-20">

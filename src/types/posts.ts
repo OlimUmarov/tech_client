@@ -3,7 +3,7 @@ export interface Posts {
     category: {
       id: string ,
       name: string,
-      parent_id: string | null
+      parent_id?: string | null
     },
     category_id?: string | number
     content: string,
