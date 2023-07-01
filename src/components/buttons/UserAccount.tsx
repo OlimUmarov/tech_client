@@ -2,7 +2,7 @@ import { RiArrowDropDownLine, RiNewspaperLine } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
 import { useState, useRef, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
 import { HoverCard, Text, Group } from "@mantine/core";
@@ -22,6 +22,7 @@ export const UserAccount = () => {
   const { isLogin } = useAppSelector((state) => state.contentSlice);
   const elementRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   function handleMenu() {
     setIsMenuClicked(!isMenuClicked);
@@ -33,6 +34,7 @@ export const UserAccount = () => {
     deleteLike("like");
     dispatch(changeLogin(!isLogin));
     setLogin("isLogin", "false");
+    navigate("/")
     window.location.reload();
   };
 
