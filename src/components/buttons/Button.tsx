@@ -1,7 +1,6 @@
 // import { changeLoading } from "../../features/contentSlice";
 import { useAppSelector } from "../../app/hook";
 import "../../App.css";
-import { useEffect } from "react";
 
 type Props = {
   title: string;
@@ -13,10 +12,6 @@ type Props = {
 
 const Button = ({ title, active, width,onClick,height}: Props) => {
   const { isLoading } = useAppSelector((state) => state.contentSlice); 
-
-  useEffect(()=> {
-    console.log("isLoading ", isLoading);    
-  },[isLoading])
   return (
     <div >
       <button

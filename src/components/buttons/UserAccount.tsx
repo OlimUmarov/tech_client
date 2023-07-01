@@ -24,6 +24,7 @@ export const UserAccount = () => {
     deleteLike("like")
     dispatch(changeLogin(!isLogin))
     setLogin("isLogin","false")
+    window.location.reload()
     };
 
 

@@ -7,7 +7,7 @@ import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
 import {  useAppDispatch, useAppSelector } from "../../app/hook";
 import { changeAlert, changeLogin,changeLoading } from "../../features/contentSlice";
-import { setItem } from "../../lib/itemStorage";
+import { setItem, setLogin} from "../../lib/itemStorage";
 import Button from "../../components/buttons/Button";
 
 type FormData = yup.InferType<typeof schemaLogin>;
@@ -34,13 +34,13 @@ const {isLogin} = useAppSelector((state)=> state.contentSlice)
       .login(newSchema)
       .then((res) => {
         if (res.status === 200) {
-          dispatch(changeLogin(!isLogin));
-          // setLogin("isLogin","true")
           navigate("/")
           setItem("access_token", res.data.token);
+          setLogin("isLogin","true")
+          dispatch(changeLogin(!isLogin));
+          window.location.reload()
           dispatch(changeAlert({ message: res.statusText, color: "green" }));
           dispatch(changeLoading(false))
-          window.location.reload()
         }
       })
       .catch((err) => {
