@@ -41,7 +41,6 @@ type categoryType = {
 
 export const CreatePosts = ({categoryList}:Props) => {
   const [title, setTitle] = useState<string>("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [shortContent, setShortContent] = useState<string>("");
   const [cat_id, setCat_id] = useState<string>("");

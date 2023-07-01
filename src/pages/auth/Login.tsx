@@ -7,7 +7,7 @@ import schemaLogin from "../../lib/schemaLogin";
 import authorization, { login } from "../../api/authApi";
 import {  useAppDispatch, useAppSelector } from "../../app/hook";
 import { changeAlert, changeLogin,changeLoading } from "../../features/contentSlice";
-import { setItem, setLogin } from "../../lib/itemStorage";
+import { setItem } from "../../lib/itemStorage";
 import Button from "../../components/buttons/Button";
 
 type FormData = yup.InferType<typeof schemaLogin>;
