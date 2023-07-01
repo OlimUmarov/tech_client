@@ -53,8 +53,8 @@ const PrivateNavbar = () => {
     return (
       <NavLink to={navbar.link} key={navbar.link} onClick={()=> handleMenuToggle(navbar.link)}>
         <span
-          className={` pr-4 text-gray-500 text-base max-lg:text-xl hover:text-blue-500 lg:hover:bg-transparent ${
-            menuOption === navbar.link ? "text-blue-500" : ""
+          className={` pr-4  text-base max-lg:text-xl hover:text-blue-500 lg:hover:bg-transparent ${
+            menuOption === navbar.link ? "text-blue-500" : "text-gray-500"
           }
         lg:border-0 lg:hover:text-primary-500 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`}
         >

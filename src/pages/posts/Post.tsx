@@ -204,13 +204,14 @@ export const Post = () => {
 
             {/* Post Image ... */}
             <div className="flex items-center justify-center pb-10">
-              <img
-                src={`http://tech.nextlevelgroup.uz/${
+              {post?.img &&  <img
+                src={`https://tech.nextlevelgroup.uz/${
                   post?.img ? post.img : ""
                 }`}
                 className="w-full rounded-xl object-cover hover:rounded-3xl transition-all duration-300 ease-in-out"
                 alt="bikhoriy"
-              />
+              />}
+             
             </div>
 
             {/* Post Content ... */}

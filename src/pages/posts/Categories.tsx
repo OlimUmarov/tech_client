@@ -7,22 +7,20 @@ import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { ArticleCardSkeleton } from "../../components/skeletons/ArticleCardSkeleton";
 import { categoriesApi } from "../../api/categoriesApi";
 import BasicPagination from "../../components/pagination/Pagination";
+import { CategoriesList } from "../../components/posts/CategoriesList";
 
 function Categories() {
   const [catPosts, setCatPosts] = useState<Array<Posts>>([]);
-  const [catList, setCatList] = useState<Array<Posts>>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(1);
-  const [reload,setReload] = useState<boolean>(false)
   const { skeleton } = useAppSelector((state) => state.contentSlice);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
   const getPosts = async (currentPage: number) => {
     dispatch(changeSkeleteon(true));
-    if (catList[0] === undefined) return new Error("Cat List is empty");   
     await categoriesApi
-      .getPostsByCategory(currentPage, id? id : catList[0].id)
+      .getPostsByCategory(currentPage, id || "")
       .then((res) => {
         if (res.status === 200) {
           setCatPosts(res.data.results);
@@ -37,26 +35,8 @@ function Categories() {
       .finally(() => {
         dispatch(changeSkeleteon(false));
       });
-    // }
   };
 
-  const getCategories = async () => {
-    await categoriesApi
-      .getCategories()
-      .then((res) => {
-        setReload(true)
-        if (res.status === 200) {
-          const data = res.data.results;
-          setCatList(data);
-        }
-      })
-      .catch((err) => {
-        setReload(false)
-        dispatch(
-          changeAlert({ message: err.response.statusText, color: "red" })
-        );
-      });
-  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -84,26 +64,13 @@ function Categories() {
     );
   });
 
-  const categories: JSX.Element[] = catList.map((category) => {
-    return (
-      <Link
-        to={`/categories/${category.id}`}
-        key={category.id}
-        className="py-0.5 px-2 border-0 text-sm transition-all duration-300 ease-in-out rounded-full bg-blue-300 hover:bg-blue-400 text-white cursor-pointer"
-      >
-        {category.name}
-      </Link>
-    );
-  });
-
   useEffect(() => {
-    getCategories();
     getPosts(1)
-  }, [id,reload]);
+  }, [id]);
 
   return (
     <div className="bg-slate-50 ">
-      <div className="flex flex-wrap gap-2 contain pt-4">{categories}</div>
+      <div className="flex flex-wrap gap-2 contain pt-4"><CategoriesList/></div>
 
       <div className="grid grid-cols-2 max-md:grid-cols-1 gap-8 pt-8 pb-8 contain">
         {!skeleton && showCatPosts}

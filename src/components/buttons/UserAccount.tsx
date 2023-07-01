@@ -84,7 +84,7 @@ export const UserAccount = () => {
                     </span>
                   </HoverCard.Target>
                   <HoverCard.Dropdown>
-                    <Text size="sm">
+                    <Text size="xs">
                       {userData}
                     </Text>
                   </HoverCard.Dropdown>

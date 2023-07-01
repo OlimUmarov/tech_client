@@ -14,6 +14,7 @@ const PublicNavbar = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuOption,setMenuOption] = useState<string>()
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -25,25 +26,26 @@ const PublicNavbar = () => {
     setSearchQuery(event.target.value);
   };
 
-  const handleMenuToggle = () => {
+  const handleMenuToggle = (link?: string) => {
     setIsMenuOpen(!isMenuOpen);
+    setMenuOption(link)
+
   };
 
   useEffect(() => {
     const query = searchParams.get("query") || "";
     setSearchQuery(query);
+    setMenuOption(location.pathname)
   }, [searchParams]);
 
   const navbars: ReactNode = navbarLinks.map((navbar) => {
-    const currentPath = location.pathname === navbar.link;
-
     return (
-      <NavLink to={navbar.link} key={navbar.link} onClick={handleMenuToggle}>
+      <NavLink to={navbar.link} key={navbar.link} onClick={()=> handleMenuToggle(navbar.link)}>
         <span
-          className={`py-2 pr-4 pl-3 text-gray-500 text-base border-b border-gray-100 hover:text-blue-500 lg:hover:bg-transparent ${
-            currentPath ? "text-blue-500" : ""
+          className={` pr-4  text-base max-lg:text-xl hover:text-blue-500 lg:hover:bg-transparent ${
+            menuOption === navbar.link ? "text-blue-500" : "text-gray-500"
           }
-        lg:border-0 lg:hover:text-primary-500 max-lg:text-xl lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`}
+        lg:border-0 lg:hover:text-primary-500 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700`}
         >
           {navbar.name}
         </span>
@@ -120,7 +122,7 @@ const PublicNavbar = () => {
               <div className="lg:hidden">
                 <button
                   type="button"
-                  onClick={handleMenuToggle}
+                  onClick={()=> handleMenuToggle()}
                   className="block text-gray-500 hover:text-gray-800 focus:text-gray-800 focus:outline-none"
                   aria-label="Open mobile menu"
                 >
@@ -199,7 +201,7 @@ const PublicNavbar = () => {
                         {navbars}
                       </ul>
                       <span
-                        onClick={handleMenuToggle}
+                        onClick={()=> handleMenuToggle()}
                         className="absolute top-6 right-4 max-sm:right-10"
                       >
                         <GrFormClose size={25} />
