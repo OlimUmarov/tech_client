@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { NavLink } from "react-router-dom";
 import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
-import { HoverCard, Button, Text, Group } from "@mantine/core";
+import { HoverCard, Text, Group } from "@mantine/core";
 import {
   deleteCatId,
   deleteLike,
