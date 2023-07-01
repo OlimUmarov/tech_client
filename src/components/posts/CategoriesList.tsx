@@ -37,11 +37,11 @@ export const CategoriesList = () => {
       <Link
         to={`/categories/${category.id}`}
         key={category.id}
-        className={`py-0.5 px-2 border-0 text-sm transition-all duration-300 ease-in-out rounded-full text-white  hover:bg-blue-400 cursor-pointer
+        className={`py-1 px-3 border-0 text-sm transition-all duration-300 ease-in-out rounded-lg hover:bg-black hover:text-white cursor-pointer
             ${
               catId === `/categories/${category.id}`
-                ? "bg-blue-500"
-                : "bg-blue-300"
+                ? "bg-black text-white"
+                : "bg-gray-200 text-grey-500"
             }
             `}
       >
