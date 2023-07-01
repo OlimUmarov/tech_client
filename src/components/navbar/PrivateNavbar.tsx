@@ -47,7 +47,7 @@ const PrivateNavbar = () => {
     const query = searchParams.get("query") || "";
     setSearchQuery(query);
     setMenuOption(location.pathname)
-  }, [searchParams]);
+  }, [location]);
 
   const navbars: ReactNode = navbarLinks.map((navbar) => {
     return (
