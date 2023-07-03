@@ -50,8 +50,11 @@ export const CreatePosts = ({categoryList}:Props) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
 const navigate = useNavigate()
+
+
   const sendPost = async () => {
     dispatch(changeLoading(true));
+
     if (!file){
       dispatch(
         changeAlert({ message: "Xatolik yuz berdi!", color: "red" })

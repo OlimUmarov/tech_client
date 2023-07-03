@@ -14,6 +14,9 @@ export const EditPost = () => {
 
   const getMyPostData = async () => {
     dispatch(changeLoading(true))
+    setTimeout(()=> {
+      dispatch(changeLoading(false))
+      },15000)
     if (!id || id === undefined) return new Error("asda");
     const post_id = parseInt(id);
     await postsApi.getMyPost(post_id).then((res) => {

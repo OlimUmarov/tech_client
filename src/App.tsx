@@ -80,6 +80,7 @@ function App() {
     if (token) {
       fetchCheckToken();
     }
+    
   }, [token]); 
 
   if (token) {

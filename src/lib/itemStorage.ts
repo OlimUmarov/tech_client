@@ -118,7 +118,7 @@ export const removeLogin =  (key: "isLogin") => {
 
 export const setUser = (key: "user", data: { id: string; email: string }) => {
     try {
-      Cookies.set(key, JSON.stringify(data));
+        localStorage.set(key, JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }
@@ -126,7 +126,7 @@ export const setUser = (key: "user", data: { id: string; email: string }) => {
   
   export const getUser = (key: "user") => {
     try {
-      const data = Cookies.get(key);
+      const data = localStorage.get(key);
       if (data) {
         return JSON.parse(data);
       }
@@ -138,7 +138,7 @@ export const setUser = (key: "user", data: { id: string; email: string }) => {
   
   export const removeUser = (key: "user") => {
     try {
-      Cookies.remove(key);
+        localStorage.remove(key);
     } catch (error) {
       console.log(error);
     }
