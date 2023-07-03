@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BsPlus } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
-import { HoverCard, Text, Group } from "@mantine/core";
 import {
   deleteCatId,
   deleteLike,
@@ -18,11 +17,12 @@ import Profile from "../../assets/profile.svg";
 
 export const UserAccount = () => {
   const [userData, setUserData] = useState<string>();
+  const [isHovered, setIsHovered] = useState(false);
   const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
   const { isLogin } = useAppSelector((state) => state.contentSlice);
   const elementRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleMenu() {
     setIsMenuClicked(!isMenuClicked);
@@ -34,7 +34,7 @@ export const UserAccount = () => {
     deleteLike("like");
     dispatch(changeLogin(!isLogin));
     setLogin("isLogin", "false");
-    navigate("/")
+    navigate("/");
     window.location.reload();
   };
 
@@ -73,30 +73,27 @@ export const UserAccount = () => {
           <RiArrowDropDownLine size={25} />
         </button>
         {isMenuClicked && (
-          <div className="absolute right-0  z-10 mt-1 w-40  p-2 border bg-white border-slate-100 flex flex-col">
+          <div className="absolute right-0 z-10 mt-1 w-40  p-2 border bg-white border-slate-100 flex flex-col">
             {userData && (
-              <Group position="left" className="truncate">
-                <HoverCard width={280} shadow="md">
-                  <HoverCard.Target>
-                    <span className="flex justify-center  items-center text-sm gap-1 text-gray-500 p-1 cursor-pointer hover:text-blue-500">
-                      <span>
-                        <BsFillPersonFill size={15} />
-                      </span>
-                      <p>{userData}</p>
-                    </span>
-                  </HoverCard.Target>
-                  <HoverCard.Dropdown>
-                    <Text size="xs">
-                      {userData}
-                    </Text>
-                  </HoverCard.Dropdown>
-                </HoverCard>
-              </Group>
+              <span
+                className="flex justify-start items-center text-sm gap-1 text-gray-500 p-1 cursor-pointer hover:text-blue-500"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <span>
+                  <BsFillPersonFill size={15} />
+                </span>
+                {isHovered? 
+                <p className="bg-white p-1 rounded-md border border-slate-200 drop-shadow-sm  transition-all duration-150 ease-in-out">{userData}</p> : 
+                <p className="truncate hover:text-clip p-1 border border-white">{userData}</p>
+                }
+              </span>
             )}
+            <div className="w-full h-px bg-slate-200"/>
             <NavLink
               to="/my-posts"
               onClick={handleMenu}
-              className="flex justify-start items-center text-sm gap-1 text-gray-500 p-1 cursor-pointer hover:text-blue-500"
+              className="flex justify-start pt-1 items-center text-sm gap-1 text-gray-500 p-1 cursor-pointer hover:text-blue-500"
             >
               <span>
                 <RiNewspaperLine size={15} />
